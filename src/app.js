@@ -1,6 +1,8 @@
 import React from 'react-native';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux/native';
+var IOSQuestionsList = require('./components/questions-list.ios');
+
 
 const {
     Navigator, View, Text, TouchableHighlight, TouchableOpacity, StyleSheet, ProgressViewIOS
@@ -14,8 +16,10 @@ class AppRouter extends React.Component {
   renderScene(route, nav) {
     switch (route.name) {
       case 'currentQ':
-        //return <LivePollContainer/>;
-        return <PollComponent/>;
+        return <PollCo
+        //return Platform.OS === 'ios' ? <IOSPoll/> : <AndroidPoll/>;
+      case 'questionList':
+        return <IOSQuestionsList />;
       default:
         return <View><Text>Hello World</Text></View>;
     }
