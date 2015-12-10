@@ -8,8 +8,6 @@ const {
 
 class Poll extends React.Component {
     render() {
-        const poll = this.props.poll;
-        poll.openPollId
 
         return (
             <View style={styles.container}>
