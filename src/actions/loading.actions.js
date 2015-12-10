@@ -4,25 +4,29 @@
 
 export function postVote (userId, answerId) {
     return (dispatch) => {
-        dispatch({TYPE: "POST_VOTE", loading: {isLoading: true, message: "Sending Vote"}});
+        dispatch(
+          {
+            type: "POST_VOTE",
+            loading: {isLoading: true, message: "Sending Vote"}
+          });
         var voteRef = fireRef.child('votes');
     }
 }
 
-export function getPolls () {
+export function getPolls (fireRef) {
     return (dispatch) => {
-        dispatch({TYPE: "GET_POLLS", loading: {isLoading: true, message: "Loading polls"}});
-        fireRef.child('poles').once('value', (payload) => {
-            dispatch({TYPE: "GET_POLLS", loading: {isLoading: false, message: "Polls Loaded"}, polls: payload});
+        dispatch({type: "GET_POLLS", loading: {isLoading: true, message: "Loading polls"}});
+        fireRef.child('polls').once('value', (payload) => {
+            dispatch({type: "GET_POLLS", loading: {isLoading: false, message: "Polls Loaded"}, polls: payload.val()});
         })
     }
 }
 
-export function getLivePollId () {
+export function getLivePollId (fireRef) {
     return (dispatch) => {
-        dispatch({TYPE: "GET_LIVE_POLL_ID", loading: {isLoading: true, message: "Loading live poll"}});
-        fireRef.children('openPollId').once('value', (payload) => {
-            dispatch({TYPE: "GET_LIVE_POLL_ID", loading: {isLoading: false, message: "Live Poll Loaded"}, openPollId: payload["openPollId"]})
+        dispatch({type: "GET_LIVE_POLL_ID", loading: {isLoading: true, message: "Loading live poll"}});
+        fireRef.child('openPollId').once('value', (payload) => {
+            dispatch({type: "GET_LIVE_POLL_ID", loading: {isLoading: false, message: "Live Poll Loaded"}, openPollId: payload["openPollId"]})
         })
     }
 }

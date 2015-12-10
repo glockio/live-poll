@@ -1,33 +1,34 @@
 import React from 'react-native';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux/native';
-import * as actions from '../actions/loading.actions.js.actions';
+import * as actions from '../actions/loading.actions';
 
 const {Text, View, StyleSheet, Component, TouchableHighlight} = React;
 
 class LivePollContainer extends Component {
 
-    componentDidMount() {
+  componentDidMount() {
 
-        const {fireRef} = this.props;
-        //this.props.fetchCount(fireRef);
-        //
-        //fireRef.parent().on('child_changed', (snapShot) => {
-        //  const value = snapShot.val();
-        //  this.props.setCount(value);
-        //});
-    }
+    const {fireRef} = this.props;
+    console.log(fireRef);
+    this.props.getPolls(fireRef);
 
-    render() {
-        const {fireRef} = this.props;
-        return (
-            <View style={ styles.container}>
-                <Text> {this.props.loading.isLoading ? this.props.loading.message : "NOT LOADING"}</Text>
-                <Text> {this.props.error.isError ? this.props.error.message : "NO ERROR"}</Text>
+    //fireRef.child('polls').on('child_changed', (snapShot) => {
+    //  const value = snapShot.val();
+    //  this.props.setCount(value);
+    //});
+  }
 
-            </View>
-        );
-    }
+
+  render(){
+    const {fireRef} = this.props;
+    return(
+      <View style={ styles.container}>
+        <Text> {this.props.loading.isLoading ? this.props.loading.message : "NOT LOADING"}</Text>
+
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -68,12 +69,11 @@ const mapReduxStoreToProps = (reduxStore) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return {
-        //setCount: bindActionCreators(actions.setCount, dispatch),
-        //fetchCount: bindActionCreators(actions.fetchCount, dispatch),
-        //startLoading: bindActionCreators(actions.setLoading, dispatch),
-        //increaseCount: bindActionCreators(actions.increaseCount,dispatch)
-    }
+  const fireRef = new Firebase('https://sizzling-heat-4406.firebaseio.com/');
+  return {
+    getPolls: bindActionCreators(actions.getPolls, dispatch),
+    getLivePollId: bindActionCreators(actions.getLivePollId, dispatch)
+  }
 };
 
 export default connect(mapReduxStoreToProps, mapDispatchToProps)(LivePollContainer);

@@ -65,15 +65,16 @@ export default function rootReducer(state=initialState, action) {
 
   switch (action.type) {
     case "GET_POLLS": {
-      if (action.loading.isLoading || action.error.isError) {
+      if (action.loading.isLoading || ("error" in action)) {
         return state.merge({loading: action.loading, error: action.error});
       } else {
+        console.log(action.polls);
         return state.merge({polls: action.polls, loading: action.loading, error: action.error});
       }
     }
 
     case "GET_LIVE_POLL_ID": {
-      if (action.loading.isLoading || action.error.isError) {
+      if (action.loading.isLoading) {
         return state.merge({loading: action.loading, error: action.error});
       } else {
         return state.merge({openPollId: action.openPollId, loading: action.loading, error: action.error});
@@ -81,7 +82,7 @@ export default function rootReducer(state=initialState, action) {
     }
 
     case "POST_VOTE": {
-      if (action.loading.isLoading || action.error.isError) {
+      if (action.loading.isLoading) {
         return state.merge({loading: action.loading, error: action.error});
       } else {
         return state.merge({votes: action.votes, loading: action.loading, error: action.error});
@@ -89,7 +90,7 @@ export default function rootReducer(state=initialState, action) {
     }
 
     case "GET_VOTES": {
-      if (action.loading.isLoading || action.error.isError) {
+      if (action.loading.isLoading) {
         return state.merge({loading: action.loading, error: action.error});
       } else {
         return state.merge({votes: action.votes, loading: action.loading, error: action.error});
