@@ -136,7 +136,9 @@ var styles = StyleSheet.create({
     },
     result: {
         flex: 1,
-        margin: 10,
+        marginBottom: 10,
+        marginLeft: 20,
+        marginRight: 20,
         alignItems: 'flex-start',
         flexWrap: 'nowrap'
     },
