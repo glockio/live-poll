@@ -7,12 +7,7 @@ const {
     } = React;
 
 class Poll extends React.Component {
-
-    // Pooyah, I don't know if this is needed. I commented it out and it still worked.
-    constructor(props) {
-        super(props);
-    }
-
+    
     render() {
         return (
             <View style={styles.container}>
