@@ -8,14 +8,14 @@ export function postVote (userId, vote) {
     }
 }
 
-export function getPastPolls () {
+export function getPolls () {
     return (dispatch) => {
-        dispatch({TYPE: "GET_PAST_POLLS"})
+        dispatch({TYPE: "GET_POLLS"})
     }
 }
 
-export function getPollById () {
+export function getLivePollId () {
     return (dispatch) => {
-        dispatch({TYPE: "GET_ONE_POLL"})
+        dispatch({TYPE: "GET_LIVE_POLL_ID"})
     }
 }
