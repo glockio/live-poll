@@ -27,8 +27,11 @@ class AppRouter extends React.Component {
                   Q1
                 </Text>
               </TouchableHighlight>
-              <View>
+              <View style={styles.result}>
                 <ProgressViewIOS style={styles.bar} progressTintColor="#8DC63F" progress={0.5} trackTintColor="#ffffff"/>
+                <Text style={styles.percentage}>
+                  50%
+                </Text>
               </View>
               <TouchableHighlight
                   style={styles.answer}
@@ -40,8 +43,11 @@ class AppRouter extends React.Component {
                   Q2
                 </Text>
               </TouchableHighlight>
-              <View>
-                <ProgressViewIOS style={styles.bar} progressTintColor="#D04949" progress={0.4} trackTintColor="#ffffff"/>
+              <View style={styles.result}>
+                <ProgressViewIOS style={styles.bar} progressTintColor="#D04949" progress={0.2} trackTintColor="#ffffff"/>
+                <Text style={styles.percentage}>
+                  20%
+                </Text>
               </View>
               <TouchableHighlight
                   style={styles.answer}
@@ -53,8 +59,11 @@ class AppRouter extends React.Component {
                   Q3
                 </Text>
               </TouchableHighlight>
-              <View>
-                <ProgressViewIOS style={styles.bar} progressTintColor="#D04949" progress={0.3} trackTintColor="#ffffff"/>
+              <View style={styles.result}>
+                <ProgressViewIOS style={styles.bar} progressTintColor="#D04949" progress={0.1} trackTintColor="#ffffff"/>
+                <Text style={styles.percentage}>
+                  10%
+                </Text>
               </View>
               <TouchableHighlight
                   style={styles.answer}
@@ -66,8 +75,11 @@ class AppRouter extends React.Component {
                   Q4
                 </Text>
               </TouchableHighlight>
-              <View>
+              <View style={styles.result}>
                 <ProgressViewIOS style={styles.bar} progressTintColor="#D04949" progress={0.2} trackTintColor="#ffffff"/>
+                <Text style={styles.percentage}>
+                  20%
+                </Text>
               </View>
             </View>
           </View>
@@ -130,8 +142,17 @@ var styles = StyleSheet.create({
     textAlign: 'center',
     color: '#ffffff'
   },
-  bar: {
+  result: {
+    flex: 1,
     margin: 10,
+    alignItems: 'flex-start',
+    flexWrap: 'nowrap'
+  },
+  bar: {
+    alignSelf: 'stretch'
+  },
+  percentage: {
+    alignSelf: 'flex-end'
   }
 });
 
