@@ -26,7 +26,7 @@ export function getLivePollId (fireRef) {
     return (dispatch) => {
         dispatch({type: "GET_LIVE_POLL_ID", loading: {isLoading: true, message: "Loading live poll"}});
         fireRef.child('openPollId').once('value', (payload) => {
-            dispatch({type: "GET_LIVE_POLL_ID", loading: {isLoading: false, message: "Live Poll Loaded"}, openPollId: payload["openPollId"]})
+            dispatch({type: "GET_LIVE_POLL_ID", loading: {isLoading: false, message: "Live Poll Loaded"}, openPollId: payload.val()["openPollId"]})
         })
     }
 }
