@@ -13,7 +13,7 @@ const initialState = Map({
     message: "error message"
   },
 
-  openPollID: "sdfdsfsfdsfsd",
+  openPollId: "sdfdsfsfdsfsd",
 
   detailPollId: "sdfdsfdsfdsf",
 
@@ -86,7 +86,7 @@ export default function rootReducer(state=initialState, action) {
       if (action.loading.isLoading || action.error.isError) {
         return state.merge({loading: action.loading, error: action.error});
       } else {
-        return state.merge({openPollID: action.openPollID, loading: action.loading, error: action.error});
+        return state.merge({openPollId: action.openPollId, loading: action.loading, error: action.error});
       }
     }
 
