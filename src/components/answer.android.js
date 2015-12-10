@@ -41,19 +41,6 @@ Answer.defaultProps = {
 };
 
 var styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'stretch',
-        backgroundColor: '#ffffff',
-        padding: 20,
-        fontFamily: 'Helvetica Neue'
-    },
-    buttons: {
-        justifyContent: 'center',
-        alignItems: 'stretch',
-        padding: 50
-    },
     answer: {
         borderRadius: 10,
         padding: 5,
@@ -67,11 +54,6 @@ var styles = StyleSheet.create({
         borderWidth: 1,
         borderStyle: 'solid'
     },
-    question: {
-        fontSize: 30,
-        textAlign: 'center',
-        margin: 10,
-    },
     label: {
         fontSize: 20,
         textAlign: 'center',
@@ -79,7 +61,7 @@ var styles = StyleSheet.create({
     },
     result: {
         flex: 1,
-        margin: 10,
+        marginBottom: 10,
         marginLeft: 20,
         marginRight: 20,
         alignItems: 'flex-start',

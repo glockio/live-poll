@@ -7,7 +7,7 @@ const {
     } = React;
 
 var AndroidAnswer = require('./answer.android');
-var IOSAnswer = require('./answer.android');
+var IOSAnswer = require('./answer.ios');
 
 var {Platform} = React;
 
@@ -51,43 +51,11 @@ var styles = StyleSheet.create({
         alignItems: 'stretch',
         padding: 50
     },
-    answer: {
-        borderRadius: 10,
-        padding: 5,
-        margin: 10,
-        backgroundColor: '#00AEEF',
-        shadowColor: '#1a1a1a',
-        shadowOffset: {width: 2, height: 2},
-        shadowOpacity: 0.5,
-        shadowRadius: 5,
-        borderColor: 'rgba(0,0,0,0.2)',
-        borderWidth: 1,
-        borderStyle: 'solid'
-    },
     question: {
         fontSize: 30,
         textAlign: 'center',
         margin: 10,
     },
-    label: {
-        fontSize: 20,
-        textAlign: 'center',
-        color: '#ffffff'
-    },
-    result: {
-        flex: 1,
-        margin: 10,
-        marginLeft: 20,
-        marginRight: 20,
-        alignItems: 'flex-start',
-        flexWrap: 'nowrap'
-    },
-    bar: {
-        alignSelf: 'stretch'
-    },
-    percentage: {
-        alignSelf: 'flex-end'
-    }
 });
 
 module.exports = Poll;
