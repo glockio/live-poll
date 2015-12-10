@@ -15,45 +15,33 @@ const initialState = Map({
 
   openPollId: "sdfdsfsfdsfsd",
 
-  detailPollId: "sdfdsfdsfdsf",
-
   polls: {
     poll1Id: {
-      key: "1234",
       questionText: "Do you like react-native?",
-      closed: false,
       publishedAt: "1449774745",
       answers: {
         "answer1Id": {
-          key: "answer1Id",
           text: "Yes"
         },
         "answer2Id": {
-          key: "answer2Id",
           text: "No"
         },
         "answer3Id": {
-          key: "answer3Id",
           text: "Maybe So"
         }
       }
     },
     poll2Id: {
-      key: "1234",
       questionText: "Do you like react-native?",
-      closed: false,
       publishedAt: "1449774745",
       answers: {
         "answer4Id": {
-          key: "answer1Id",
           text: "Yes"
         },
         "answer5Id": {
-          key: "answer2Id",
           text: "No"
         },
         "answer6Id": {
-          key: "answer3Id",
           text: "Maybe So"
         }
       }
@@ -67,6 +55,8 @@ const initialState = Map({
     }
   }
 });
+
+
 
 
 export default function rootReducer(state=initialState, action) {
@@ -91,6 +81,14 @@ export default function rootReducer(state=initialState, action) {
     }
 
     case "POST_VOTE": {
+      if (action.loading.isLoading || action.error.isError) {
+        return state.merge({loading: action.loading, error: action.error});
+      } else {
+        return state.merge({votes: action.votes, loading: action.loading, error: action.error});
+      }
+    }
+
+    case "GET_VOTES": {
       if (action.loading.isLoading || action.error.isError) {
         return state.merge({loading: action.loading, error: action.error});
       } else {
