@@ -40,7 +40,7 @@ export function getVotesForPoll (pollId) {
             data.keys().map((option) => {
                 fireRef.child('votes').child(option).on('value', (payload) => {
                     var data = payload.val();
-                    answers[option] = data.keys().length;
+                    answers[option]["text"] = data.keys().length;
                 })
             });
             dispatch({
@@ -53,7 +53,6 @@ export function getVotesForPoll (pollId) {
 }
 
 export function getAnswersVotes(fireRef, answerId) {
-
     return (dispatch) => {
         dispatch({type: "GET_ANSWERS_VOTES", loading: {isLoading: true, message: "Loading votes for answer"}});
 
@@ -65,6 +64,14 @@ export function getAnswersVotes(fireRef, answerId) {
             });
         });
     }
+}
 
     //return ({type: "GET_ANSWERS_VOTES", adction: })
+
+export function getVotesForAnswer (answerId) {
+    dispatch({type: "GET_VOTES_FOR_ANSWER", loading: {isLoading: true, message: "Loading votes for answer " + answerId}});
+    fireRef.child('votes').child(answerId).on('value', (payload) => {
+        var data = payload.val();
+        dispatch({type: "GET_VOTES_FOR_ANSWER", loading: {isLoading: true, message: "Loaded answers for " + answerId}, answer: data.keys().length});
+    })
 }
