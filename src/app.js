@@ -3,63 +3,75 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux/native';
 
 const {
- Navigator, View, Text, TouchableHighlight, TouchableOpacity, StyleSheet
+ Navigator, View, Text, TouchableHighlight, TouchableOpacity, StyleSheet, ProgressViewIOS
 } = React;
 
 class AppRouter extends React.Component {
 
   renderScene(route, nav) {
     switch (route.name) {
-      case 'helloWorld':
+      case 'currentQ':
         return (
-      <View style={styles.container}>
-        <Text style={styles.question}>
-          Which quarter do you think will be Hootsuite's biggest in 2016?
-        </Text>
-        <View style={styles.buttons}>
-          <TouchableHighlight
-              style={styles.answer}
-              activeOpacity={1}
-              animationVelocity={0}
-              underlayColor="#187AAD"
-              onPress={() => console.log('Q1')}>
-            <Text style={styles.label}>
-              Q1
+          <View style={styles.container}>
+            <Text style={styles.question}>
+              Which quarter do you think will be Hootsuite's biggest in 2016?
             </Text>
-          </TouchableHighlight>
-          <TouchableHighlight
-              style={styles.answer}
-              activeOpacity={1}
-              animationVelocity={0}
-              underlayColor="#187AAD"
-              onPress={() => console.log('Q2')}>
-            <Text style={styles.label}>
-              Q2
-            </Text>
-          </TouchableHighlight>
-          <TouchableHighlight
-              style={styles.answer}
-              activeOpacity={1}
-              animationVelocity={0}
-              underlayColor="#187AAD"
-              onPress={() => console.log('Q3')}>
-            <Text style={styles.label}>
-              Q3
-            </Text>
-          </TouchableHighlight>
-          <TouchableHighlight
-              style={styles.answer}
-              activeOpacity={1}
-              animationVelocity={0}
-              underlayColor="#187AAD"
-              onPress={() => console.log('Q4')}>
-            <Text style={styles.label}>
-              Q4
-            </Text>
-          </TouchableHighlight>
-        </View>
-      </View>
-    );
+            <View style={styles.buttons}>
+              <TouchableHighlight
+                  style={styles.answer}
+                  activeOpacity={1}
+                  animationVelocity={0}
+                  underlayColor="#187AAD"
+                  onPress={() => console.log('Q1')}>
+                <Text style={styles.label}>
+                  Q1
+                </Text>
+              </TouchableHighlight>
+              <View>
+                <ProgressViewIOS style={styles.bar} progressTintColor="#8DC63F" progress={0.5} trackTintColor="#ffffff"/>
+              </View>
+              <TouchableHighlight
+                  style={styles.answer}
+                  activeOpacity={1}
+                  animationVelocity={0}
+                  underlayColor="#187AAD"
+                  onPress={() => console.log('Q2')}>
+                <Text style={styles.label}>
+                  Q2
+                </Text>
+              </TouchableHighlight>
+              <View>
+                <ProgressViewIOS style={styles.bar} progressTintColor="#D04949" progress={0.4} trackTintColor="#ffffff"/>
+              </View>
+              <TouchableHighlight
+                  style={styles.answer}
+                  activeOpacity={1}
+                  animationVelocity={0}
+                  underlayColor="#187AAD"
+                  onPress={() => console.log('Q3')}>
+                <Text style={styles.label}>
+                  Q3
+                </Text>
+              </TouchableHighlight>
+              <View>
+                <ProgressViewIOS style={styles.bar} progressTintColor="#D04949" progress={0.3} trackTintColor="#ffffff"/>
+              </View>
+              <TouchableHighlight
+                  style={styles.answer}
+                  activeOpacity={1}
+                  animationVelocity={0}
+                  underlayColor="#187AAD"
+                  onPress={() => console.log('Q4')}>
+                <Text style={styles.label}>
+                  Q4
+                </Text>
+              </TouchableHighlight>
+              <View>
+                <ProgressViewIOS style={styles.bar} progressTintColor="#D04949" progress={0.2} trackTintColor="#ffffff"/>
+              </View>
+            </View>
+          </View>
+        );
       default:
         return <View><Text>Hello World</Text></View>;
     }
@@ -68,7 +80,7 @@ class AppRouter extends React.Component {
   render(){
     return(
       <Navigator
-       initialRoute={ { name: "helloWorld"} }
+       initialRoute={ { name: "currentQ"} }
        renderScene={this.renderScene.bind(this)}
        configureScene={ (route) => {
          if (route.sceneConfig) {
@@ -118,6 +130,9 @@ var styles = StyleSheet.create({
     textAlign: 'center',
     color: '#ffffff'
   },
+  bar: {
+    margin: 10,
+  }
 });
 
 export default AppRouter;
