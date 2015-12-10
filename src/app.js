@@ -6,20 +6,20 @@ const {
     Navigator, View, Text, TouchableHighlight, TouchableOpacity, StyleSheet, ProgressViewIOS
     } = React;
 
-var Poll = require('./components/poll.component');
+var IOSPoll = require('./components/poll.ios');
+var AndroidPoll = require('./components/poll.android');
 
+var {Platform} = React;
 
 class AppRouter extends React.Component {
 
-    renderScene(route, nav) {
-        switch (route.name) {
-            case 'currentQ':
-                return <Poll/>;
-            default:
-                return <View>
-                    <Text>Hello World</Text>
-                </View>;
-        }
+
+  renderScene(route, nav) {
+    switch (route.name) {
+      case 'currentQ':
+        return Platform.OS === 'ios' ? <IOSPoll/> : <AndroidPoll/>;
+      default:
+        return <View><Text>Hello World</Text></View>;
     }
 
     render() {

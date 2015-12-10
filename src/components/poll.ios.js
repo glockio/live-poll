@@ -7,7 +7,6 @@ const {
     } = React;
 
 class Poll extends React.Component {
-    
     render() {
         return (
             <View style={styles.container}>
