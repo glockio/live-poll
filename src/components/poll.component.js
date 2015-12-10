@@ -6,7 +6,6 @@ const {
     Navigator, View, Text, TouchableHighlight, TouchableOpacity, StyleSheet, ProgressViewIOS
     } = React;
 
-
 class Poll extends React.Component {
 
     // Pooyah, I don't know if this is needed. I commented it out and it still worked.
