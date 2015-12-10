@@ -14,12 +14,15 @@ var {Platform} = React;
 class AppRouter extends React.Component {
 
 
-  renderScene(route, nav) {
-    switch (route.name) {
-      case 'currentQ':
-        return Platform.OS === 'ios' ? <IOSPoll/> : <AndroidPoll/>;
-      default:
-        return <View><Text>Hello World</Text></View>;
+    renderScene(route, nav) {
+      switch (route.name) {
+          case 'currentQ':
+              return Platform.OS === 'ios' ? <IOSPoll/> : <AndroidPoll/>;
+          default:
+              return <View>
+                  <Text>Hello World</Text>
+              </View>;
+      }
     }
 
     render() {

@@ -9,6 +9,8 @@ const {
 
 class Poll extends React.Component {
 
+
+
     render() {
         return (
             <View style={styles.container}>
@@ -27,7 +29,7 @@ class Poll extends React.Component {
                         </Text>
                     </TouchableHighlight>
                     <View style={styles.result}>
-                        <ProgressBarAndroid style={styles.bar} progressTintColor="#8DC63F" progress={0.5} trackTintColor="#ffffff"/>
+                        <ProgressBarAndroid styleAttr="Horizontal" progressTintColor="#8DC63F" progress={0.5} trackTintColor="#ffffff"/>
                         <Text style={styles.percentage}>
                             50%
                         </Text>
@@ -43,7 +45,7 @@ class Poll extends React.Component {
                         </Text>
                     </TouchableHighlight>
                     <View style={styles.result}>
-                        <ProgressBarAndroid style={styles.bar} progressTintColor="#D04949" progress={0.2} trackTintColor="#ffffff"/>
+                        <ProgressBarAndroid styleAttr="Horizontal" progressTintColor="#D04949" progress={0.2} trackTintColor="#ffffff"/>
                         <Text style={styles.percentage}>
                             20%
                         </Text>
@@ -59,7 +61,7 @@ class Poll extends React.Component {
                         </Text>
                     </TouchableHighlight>
                     <View style={styles.result}>
-                        <ProgressBarAndroid style={styles.bar} progressTintColor="#D04949" progress={0.1} trackTintColor="#ffffff"/>
+                        <ProgressBarAndroid styleAttr="Horizontal" progressTintColor="#D04949" progress={0.1} trackTintColor="#ffffff"/>
                         <Text style={styles.percentage}>
                             10%
                         </Text>
@@ -75,7 +77,7 @@ class Poll extends React.Component {
                         </Text>
                     </TouchableHighlight>
                     <View style={styles.result}>
-                        <ProgressBarAndroid style={styles.bar} progressTintColor="#D04949" progress={0.2} trackTintColor="#ffffff"/>
+                        <ProgressBarAndroid styleAttr="Horizontal" progressTintColor="#D04949" progress={0.2} trackTintColor="#ffffff"/>
                         <Text style={styles.percentage}>
                             20%
                         </Text>
