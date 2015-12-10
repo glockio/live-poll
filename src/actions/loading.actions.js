@@ -30,3 +30,20 @@ export function getLivePollId (fireRef) {
         })
     }
 }
+
+export function getVotesForPoll (pollId) {
+    return (dispatch) => {
+        dispatch({type: "GET_VOTES_FOR_POLL", loading: {isLoading: true, message: "Loading votes for poll " + pollId}});
+        fireRef.child('polls').child(pollId).child('answers').on('value', (payload) => {
+            var data = payload.val();
+            var answers = {};
+            data.keys().map((option) => {
+                fireRef.child('votes').child(option).on('value', (payload) => {
+                    var data = payload.val();
+                    answers[option] = data.keys().length;
+                })
+            });
+            dispatch({type: "GET_VOTES_FOR_POLL", loading: {isLoading: false, message: "Votes retreived"}, openPollId: answers})
+        })
+    }
+}
