@@ -68,7 +68,9 @@ export function getOpenPoll (fireRef) {
                             voteCount = payload.val().length;
                         }
                         totalVotes += voteCount;
-                        openPoll.answers[answerKey]["voteCount"] = voteCount;
+                        if (openPoll.answers) {
+                          openPoll.answers[answerKey]["voteCount"] = voteCount;
+                        }
                     })
                 }
                 openPoll['totalVotes'] = totalVotes;
