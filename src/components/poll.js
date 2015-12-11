@@ -22,7 +22,8 @@ class Poll extends React.Component {
 
     renderAnswer(answer) {
       const totalVotes = this.props.openPoll.get("totalVotes");
-      console.log("single answer", answer);
+      console.log("single answer ", answer);
+      console.log("total votes ", totalVotes);
       //return null;
         return Platform.OS === 'ios'
             ? <IOSAnswer answer={answer} onPress={this.props.onPress} totalVoteCount={totalVotes}/>
@@ -60,7 +61,7 @@ class Poll extends React.Component {
         );
     }
 }
-//{)
+
 Poll.defaultProps = {
 
 

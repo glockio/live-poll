@@ -3,8 +3,9 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux/native';
 
 const {
-    Navigator, View, Text, TouchableHighlight, TouchableOpacity, StyleSheet, ProgressBarAndroid
+    Navigator, View, Text, TouchableHighlight, TouchableOpacity, StyleSheet
     } = React;
+var ProgressBar = require('react-native-progress-bar');
 
 
 class Answer extends React.Component {
@@ -16,6 +17,9 @@ class Answer extends React.Component {
     render() {
         var answer = this.props.answer;
         var onPress = this.props.onPress;
+        var totalVotes = this.props.totalVoteCount;
+        var progress = 0.4;//(totalVotes === undefined) ? 0.0 : (answer.voteCount / totalVotes);
+        console.log("progress: " + progress);
         return (
             <View>
                 <TouchableHighlight
@@ -25,13 +29,16 @@ class Answer extends React.Component {
                     underlayColor="#187AAD"
                     onPress={onPress}>
                     <Text style={styles.label}>
-                        {answer.name}
+                        {answer.text}
                     </Text>
                 </TouchableHighlight>
                 <View style={styles.result}>
-                    <ProgressBarAndroid styleAttr="Horizontal" style={styles.bar} progressTintColor="#D04949" progress={0.5} trackTintColor="#ffffff"/>
+                    <ProgressBar
+                      backgroundStyle={{backgroundColor: '#cccccc', borderRadius: 2}}
+                      style={{marginTop: 10, width: 200}}
+                      progress={0.4}/>
                     <Text style={styles.percentage}>
-                        20%
+                    {progress * 100}
                     </Text>
                 </View>
             </View>
