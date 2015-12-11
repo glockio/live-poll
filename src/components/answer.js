@@ -71,6 +71,7 @@ class Answer extends React.Component {
           <ProgressBar
             backgroundStyle={{backgroundColor: '#cccccc', borderRadius: 2}}
             style={{marginTop: 10, width: 220}}
+            easingDuration={0}
             progress={this.state.progress}/>
             {this.renderProgressValue()}
         </View>
