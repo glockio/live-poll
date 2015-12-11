@@ -71,12 +71,13 @@ class Answer extends React.Component {
           </Text>
         </TouchableHighlight>
         <View style={styles.result}>
-            <ProgressBar
-              backgroundStyle={{backgroundColor: '#ffffff', borderRadius: 0}}
-              style={{marginTop: 10, marginLeft: 15, width: windowSize.width-130}}
-              easingDuration={0}
-              progress={this.state.progress}/>
-              {this.renderProgressValue()}
+          <ProgressBar
+            backgroundStyle={{backgroundColor: '#ffffff', borderRadius: 0}}
+            fillStyle={{backgroundColor: this.props.progressBarColor}}
+            style={{marginTop: 10, marginLeft: 15, width: windowSize.width-130}}
+            easingDuration={0}
+            progress={this.state.progress}/>
+            {this.renderProgressValue()}
         </View>
       </View>
     );
@@ -89,6 +90,8 @@ Answer.defaultProps = {
     console.log('Submit button pressed');
   },
   progress: 0.6,
+  progressBarColor: '#cccccc'
+
 };
 
 var styles = StyleSheet.create({

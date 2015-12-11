@@ -13,6 +13,13 @@ var windowSize = Dimensions.get('window');
 
 var {Platform} = React;
 
+var colorPalette = [
+  "#00AEEF",
+  "#8DC63F",
+  "#FF9100",
+  "#F44336"
+];
+
 class Poll extends React.Component {
     _goToPastPolls() {
        this.props.navigator.push({name: "questionList"});
@@ -22,18 +29,17 @@ class Poll extends React.Component {
         super(props);
     }
 
-    renderAnswer(answer, hasVoted=false) {
+    renderAnswer(answer, color, hasVoted=false) {
       const totalVotes = this.props.openPoll.get("totalVotes");
-
-      return<Answer answer={answer} onPress={this.props.onPress} voted={hasVoted} totalVoteCount={totalVotes}/>
+      return<Answer answer={answer} onPress={this.props.onPress} voted={hasVoted} totalVoteCount={totalVotes} progressBarColor={color}/>
     }
 
     renderAnswer0 (answersJSON) {
       var items = [];
+      var i = 0;
       for (answerKey in answersJSON) {
         answersJSON[answerKey]['answerKey'] = answerKey;
-
-        items.push(this.renderAnswer(answersJSON[answerKey], this.hasUserVotedOnAnswer(answerKey)));
+        items.push(this.renderAnswer(answersJSON[answerKey], colorPalette[i++], this.hasUserVotedOnAnswer(answerKey)));
       }
       return items;
     }
