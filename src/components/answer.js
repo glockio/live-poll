@@ -35,7 +35,7 @@ class Answer extends React.Component {
   }
 
   renderProgressValue() {
-    if (this.state.progress == 0) {
+    if (this.state.progress == 0 || isNaN(parseFloat(this.state.progress))) {
       return null;
     } else {
       return (
