@@ -57,6 +57,7 @@ class QuestionsList extends React.Component {
         style={[styles.content, isActive && styles.isActive]}
         duration={200}
         transition="backgroundColor">
+          <View>
           <Text>Result</Text>
           </View>
       </Animatable.View>
