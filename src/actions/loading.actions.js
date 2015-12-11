@@ -26,14 +26,47 @@ export function getPolls (fireRef) {
     }
 }
 
+export function setPolls (polls) {
+  return (dispatch) => {
+    dispatch({type: "SET_POLLS", polls: polls});
+  }
+}
+
 export function getLivePollId (fireRef) {
     return (dispatch) => {
         dispatch({type: "GET_LIVE_POLL_ID", loading: {isLoading: true, message: "Loading live poll"}});
         fireRef.child('openPollId').once('value', (payload) => {
-            dispatch({type: "GET_LIVE_POLL_ID", loading: {isLoading: false, message: "Live Poll Loaded"}, openPollId: payload.val()["openPollId"]})
+            dispatch({type: "GET_LIVE_POLL_ID", loading: {isLoading: false, message: "Live Poll Loaded"}, openPollId: payload.val()})
         })
     }
 }
+
+export function getOpenPoll (fireRef) {
+    return (dispatch) => {
+        dispatch({type: "GET_OPEN_POLL", loading: {isLoading: true, message: "Loading live poll"}});
+        openPoll = {};
+        fireRef.child('openPollId').once('value', (payload) => {
+            openPollId = payload.val();
+            fireRef.child('polls').child(openPollId).once('value', (payload) => {
+                openPoll = payload.val();
+                totalVotes = 0;
+                for (answerKey in openPoll.answers){
+                    fireRef.child('votes').child(answerKey).on('value', (payload) => {
+                        var voteCount = 0;
+                        if (payload.val()) {
+                            voteCount = payload.val().length;
+                        }
+                        totalVotes += voteCount;
+                        openPoll.answers[answerKey]["voteCount"] = voteCount;
+                    })
+                }
+                openPoll.answers['totalVotes'] = totalVotes;
+                dispatch({type: "GET_OPEN_POLL", loading: {isLoading: false, message: "Live Poll Loaded"}, openPoll: openPoll})
+            });
+        })
+    }
+}
+
 
 export function getVotesForPoll (pollId) {
     return (dispatch) => {
@@ -70,8 +103,6 @@ export function getAnswersVotes(fireRef, answerId) {
     }
 }
 
-    //return ({type: "GET_ANSWERS_VOTES", adction: })
-
 export function getVotesForAnswer (answerId) {
     dispatch({type: "GET_VOTES_FOR_ANSWER", loading: {isLoading: true, message: "Loading votes for answer " + answerId}});
     fireRef.child('votes').child(answerId).on('value', (payload) => {
@@ -81,7 +112,7 @@ export function getVotesForAnswer (answerId) {
 }
 
 export function createPoll (question, answers) {
-    dispatch({type: "PUT_CREATE_POLL", loading: {isLoading: true, message: "Creating new poll"}});
+    dispatch({type: "CREATE_POLL", loading: {isLoading: true, message: "Creating new poll"}});
     //get the current live poll and make it dead
 
     //create the new live poll
@@ -91,6 +122,7 @@ export function createPoll (question, answers) {
         answerRef.push({text: answer})
     });
     fireRef.child('openPollId').update(newPoll.key());
+    dispatch({type: "CREATE_POLL", loading: {isLoading: false, message: "Created new poll"}});
     //swap the openPollId
 
 }
