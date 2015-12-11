@@ -3,10 +3,10 @@ import {Map, Seq, List,OrderedMap, Record} from 'immutable';
 const initialState = Map({
   userId: null,
 
-  loading: {
-    isLoading: false,
+  loading: Map({
+    isLoading: true,
     message: "Loading ..."
-  },
+  }),
 
   error: {
     isError: false,
