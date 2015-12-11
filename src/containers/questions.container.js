@@ -3,7 +3,7 @@
 import React from 'react-native';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux/native';
-import QuestionsList from '../components/questions-list.ios';
+import QuestionsList from '../components/questions-list';
 import Firebase from 'firebase';
 import * as Actions from '../actions/loading.actions';
 const {Navigator, Text, View, Component} = React;
