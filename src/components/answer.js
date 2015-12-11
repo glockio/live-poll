@@ -39,9 +39,10 @@ class Answer extends React.Component {
       return null;
     } else {
       return (
-        <Text style={styles.percentage}>
-          {(this.state.progress * 100).toFixed(2)}%
-        </Text>
+        <View style={styles.progressdetails}>
+          <Text style={styles.usercount}>{this.props.answer.voteCount}</Text>
+          <Text style={styles.percentage}>{(this.state.progress * 100).toFixed(2)}%</Text>
+        </View>
       );
     }
   }
@@ -71,7 +72,7 @@ class Answer extends React.Component {
             backgroundStyle={{backgroundColor: '#cccccc', borderRadius: 2}}
             style={{marginTop: 10, width: 220}}
             progress={this.state.progress}/>
-          {this.renderProgressValue()}
+            {this.renderProgressValue()}
         </View>
       </View>
     );
@@ -117,10 +118,19 @@ var styles = StyleSheet.create({
     flexWrap: 'nowrap'
   },
   bar: {
-    alignSelf: 'stretch'
+    marginTop: 10,
+    width: 220
+  },
+  progressdetails: {
+    alignItems: 'stretch',
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+
+  },
+  usercount: {
+    width: 175
   },
   percentage: {
-    alignSelf: 'flex-end'
   }
 });
 
