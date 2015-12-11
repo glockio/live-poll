@@ -1,6 +1,7 @@
 import React from 'react-native';
 import Immutable from 'immutable';
 var _ = require('lodash');
+var Accordion = require('./accordion');
 var Animatable = require('react-native-animatable');
 var Dimensions = require('Dimensions');
 var QuestionListResult = require('./question-list-result');
