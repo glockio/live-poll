@@ -56,7 +56,7 @@ class Answer extends React.Component {
             style={{marginTop: 10, width: 200}}
             progress={this.state.progress}/>
           <Text style={styles.percentage}>
-                    {this.state.progress * 100}
+                    {(this.state.progress * 100).toFixed(2)}
           </Text>
         </View>
       </View>
