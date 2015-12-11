@@ -13,54 +13,30 @@ class LivePollContainer extends Component {
 
   componentDidMount() {
     const {fireRef} = this.props;
-    this.props.getPolls(fireRef);
-    this.props.getLivePollId(fireRef);
+    this.props.getOpenPoll(fireRef);
 
-    //this.props.getAnswersVotes(fireRef, "-K5CpNK_ZtZQj3P_t4Hu");
+    fireRef.child('openPollId').on('child_changed', (snapShot) => {
+      const value = snapShot.val();
+      this.props.getOpenPoll(fireRef);
+    });
 
-    //fireRef.child('polls').on('child_changed', (snapShot) => {
-    //  const value = snapShot.val();
-    //  this.props.setCount(value);
-    //});
+    fireRef.child('votes').on('child_changed', (snapShot) => {
+      const value = snapShot.val();
+      this.props.getOpenPoll(fireRef);
+    });
   }
 
   render(){
-    console.log("OPEN POLL", this.props.openPoll.toJS());
-    return <PollComponent navigator={this.props.navigator} />;
-    //return Platform.OS === 'ios' ? <IOSPoll openPoll={this.props.openPoll}/> : <AndroidPoll openPoll={this.props.openPoll}/>;
+    return <PollComponent navigator={this.props.navigator} openPoll={this.props.openPoll}/>;
   }
 }
-
-const styles = StyleSheet.create({
-
-    container: {
-        flex: 1,
-        alignSelf: "stretch",
-        backgroundColor: 'yellow',
-    },
-
-    header: {
-        height: 120,
-        backgroundColor: 'red',
-    },
-
-    body: {
-        backgroundColor: 'green',
-        flex: 1
-    },
-
-    footer: {
-        height: 120,
-
-    }
-
-});
 
 LivePollContainer.defaultProps = { openPoll: Map({}) };
 
 const mapReduxStoreToProps = (reduxStore) => {
     const countRef = new Firebase('https://sizzling-heat-4406.firebaseio.com/');
     const openPollId = reduxStore.get('openPollId');
+
     return {
         fireRef: countRef,
         loading: reduxStore.get('loading'),
@@ -71,9 +47,7 @@ const mapReduxStoreToProps = (reduxStore) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getPolls: bindActionCreators(actions.getPolls, dispatch),
-    getLivePollId: bindActionCreators(actions.getLivePollId, dispatch),
-    //getAnswersVotes: bindActionCreators(actions.getAnswersVotes, dispatch),
+    getOpenPoll: bindActionCreators(actions.getOpenPoll, dispatch)
   }
 };
 

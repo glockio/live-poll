@@ -15,6 +15,8 @@ const initialState = Map({
 
   openPollId: "sdfdsfsfdsfsd",
 
+  openPoll: {},
+
   polls: Map({}),
 
   votes: {
@@ -40,6 +42,10 @@ export default function rootReducer(state=initialState, action) {
         console.log(action.polls);
         return state.merge({polls: action.polls, loading: action.loading, error: action.error});
       }
+    }
+
+    case "SET_POLLS": {
+      return state.merge({polls: action.polls});
     }
 
     case "GET_LIVE_POLL_ID": {

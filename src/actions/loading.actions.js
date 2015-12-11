@@ -22,11 +22,17 @@ export function getPolls (fireRef) {
     }
 }
 
+export function setPolls (polls) {
+  return (dispatch) => {
+    dispatch({type: "SET_POLLS", polls: polls});
+  }
+}
+
 export function getLivePollId (fireRef) {
     return (dispatch) => {
         dispatch({type: "GET_LIVE_POLL_ID", loading: {isLoading: true, message: "Loading live poll"}});
         fireRef.child('openPollId').once('value', (payload) => {
-            dispatch({type: "GET_LIVE_POLL_ID", loading: {isLoading: false, message: "Live Poll Loaded"}, openPollId: payload.val()["openPollId"]})
+            dispatch({type: "GET_LIVE_POLL_ID", loading: {isLoading: false, message: "Live Poll Loaded"}, openPollId: payload.val()})
         })
     }
 }
