@@ -1,6 +1,7 @@
 import React from 'react-native';
 import Immutable from 'immutable';
 var _ = require('lodash');
+var Accordion = require('./accordion');
 var Animatable = require('react-native-animatable');
 var Dimensions = require('Dimensions');
 var QuestionListResult = require('./question-list-result');
@@ -58,7 +59,7 @@ class QuestionsList extends React.Component {
     if (isActive) {
       console.log(question);
       results = _.map(question.answers, (answer, key) => <QuestionListResult totalVotes={question.totalVotes || 0} answer={answer} key={key} />);
-      
+
     console.log(results);
     } else {
       results = [<View></View>];

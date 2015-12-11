@@ -19,13 +19,13 @@ class LivePollContainer extends Component {
     const {fireRef} = this.props;
     this.props.getOpenPoll(fireRef);
 
-    fireRef.child('openPollId').on('child_changed', this.getOpenPoll.bind(this));
+    fireRef.child('openPollId').on('value', this.getOpenPoll.bind(this));
     fireRef.child('votes').on('value', this.getOpenPoll.bind(this));
   }
 
   componentWillUnmount() {
     const {fireRef} = this.props;
-    fireRef.child('openPollId').off('child_changed', this.getOpenPoll.bind(this));
+    fireRef.child('openPollId').off('value', this.getOpenPoll.bind(this));
     fireRef.child('votes').off('value', this.getOpenPoll.bind(this));
   }
 
