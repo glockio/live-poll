@@ -2,6 +2,9 @@ import React from 'react-native';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux/native';
 
+var Dimensions = require('Dimensions');
+var windowSize = Dimensions.get('window');
+
 const {
   Navigator, View, Text, TouchableHighlight, TouchableOpacity, StyleSheet
   } = React;
@@ -68,12 +71,12 @@ class Answer extends React.Component {
           </Text>
         </TouchableHighlight>
         <View style={styles.result}>
-          <ProgressBar
-            backgroundStyle={{backgroundColor: '#cccccc', borderRadius: 2}}
-            style={{marginTop: 10, width: 220}}
-            easingDuration={0}
-            progress={this.state.progress}/>
-            {this.renderProgressValue()}
+            <ProgressBar
+              backgroundStyle={{backgroundColor: '#cccccc', borderRadius: 2}}
+              style={{marginTop: 10, marginLeft: 15, width: windowSize.width-130}}
+              easingDuration={0}
+              progress={this.state.progress}/>
+              {this.renderProgressValue()}
         </View>
       </View>
     );
@@ -113,23 +116,22 @@ var styles = StyleSheet.create({
   result: {
     flex: 1,
     marginBottom: 10,
-    marginLeft: 20,
-    marginRight: 20,
-    alignItems: 'flex-start',
-    flexWrap: 'nowrap'
+    flexWrap: 'nowrap',
+    flexDirection: 'column',
+    alignItems: 'stretch',
+
   },
   bar: {
     marginTop: 10,
     width: 220
   },
   progressdetails: {
-    alignItems: 'stretch',
     flexDirection: 'row',
-    justifyContent: 'space-between'
-
+    justifyContent: 'space-between',
+    marginLeft: 15,
+    width: windowSize.width-130
   },
   usercount: {
-    width: 175
   },
   percentage: {
   }

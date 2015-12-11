@@ -88,7 +88,8 @@ var styles = StyleSheet.create({
     buttons: {
         justifyContent: 'center',
         alignItems: 'stretch',
-        padding: 50
+        marginLeft: 50,
+        marginRight: 50,
     },
     questionWWrapper: {
         flex: 1
@@ -111,7 +112,8 @@ var styles = StyleSheet.create({
         textAlign: 'center',
     },
     totalvotes: {
-        textAlign: 'right'
+        textAlign: 'right',
+      marginRight: 15
     }
 });
 
