@@ -12,27 +12,34 @@ class Answer extends React.Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            voted: false,
+        };
     }
 
     render() {
-      console.log(this.props);
-        var answer = this.props.answer;
+        console.log(this.props);
+
         var onPress = function() {
+          this.setState((state) => (
+            {voted: !state.voted}
+          ));
           this.props.onPress();
         }.bind(this);
 
+        //var progress = 0;
         var progress = (answer.voteCount / this.props.totalVoteCount);
 
         return (
             <View>
                 <TouchableHighlight
-                    style={styles.answer}
+                    style={[styles.answer, this.state.voted && styles.voted]}
                     activeOpacity={1}
                     animationVelocity={0}
                     underlayColor="#187AAD"
                     onPress={onPress}>
                     <Text style={styles.label}>
-                        {answer.text}
+                        {this.props.answer.text}
                     </Text>
                 </TouchableHighlight>
                 <View style={styles.result}>
@@ -65,6 +72,9 @@ var styles = StyleSheet.create({
         borderColor: 'rgba(0,0,0,0.2)',
         borderWidth: 1,
         borderStyle: 'solid'
+    },
+    voted: {
+        backgroundColor: '#FF9100',
     },
     label: {
         fontSize: 20,
