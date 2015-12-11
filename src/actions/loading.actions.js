@@ -66,8 +66,6 @@ export function getAnswersVotes(fireRef, answerId) {
     }
 }
 
-    //return ({type: "GET_ANSWERS_VOTES", adction: })
-
 export function getVotesForAnswer (answerId) {
     dispatch({type: "GET_VOTES_FOR_ANSWER", loading: {isLoading: true, message: "Loading votes for answer " + answerId}});
     fireRef.child('votes').child(answerId).on('value', (payload) => {
@@ -77,7 +75,7 @@ export function getVotesForAnswer (answerId) {
 }
 
 export function createPoll (question, answers) {
-    dispatch({type: "PUT_CREATE_POLL", loading: {isLoading: true, message: "Creating new poll"}});
+    dispatch({type: "CREATE_POLL", loading: {isLoading: true, message: "Creating new poll"}});
     //get the current live poll and make it dead
 
     //create the new live poll
