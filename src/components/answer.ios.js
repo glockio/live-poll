@@ -1,0 +1,83 @@
+import React from 'react-native';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux/native';
+
+const {
+    Navigator, View, Text, TouchableHighlight, TouchableOpacity, StyleSheet, ProgressViewIOS
+    } = React;
+
+
+class Answer extends React.Component {
+
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        var answer = this.props.answer;
+        var onPress = this.props.onPress;
+        return (
+            <View>
+                <TouchableHighlight
+                    style={styles.answer}
+                    activeOpacity={1}
+                    animationVelocity={0}
+                    underlayColor="#187AAD"
+                    onPress={onPress}>
+                    <Text style={styles.label}>
+                        {answer.name}
+                    </Text>
+                </TouchableHighlight>
+                <View style={styles.result}>
+                    <ProgressViewIOS style={styles.bar} progressTintColor="#8DC63F" progress={0.5} trackTintColor="#ffffff"/>
+                    <Text style={styles.percentage}>
+                        20%
+                    </Text>
+                </View>
+            </View>
+        );
+    }
+}
+
+Answer.defaultProps = {
+    onPress: () => {
+        console.log('Submit button pressed');
+    }
+};
+
+var styles = StyleSheet.create({
+    answer: {
+        borderRadius: 10,
+        padding: 5,
+        margin: 10,
+        backgroundColor: '#00AEEF',
+        shadowColor: '#1a1a1a',
+        shadowOffset: {width: 2, height: 2},
+        shadowOpacity: 0.5,
+        shadowRadius: 5,
+        borderColor: 'rgba(0,0,0,0.2)',
+        borderWidth: 1,
+        borderStyle: 'solid'
+    },
+    label: {
+        fontSize: 20,
+        textAlign: 'center',
+        color: '#ffffff'
+    },
+    result: {
+        flex: 1,
+        marginBottom: 10,
+        marginLeft: 20,
+        marginRight: 20,
+        alignItems: 'flex-start',
+        flexWrap: 'nowrap'
+    },
+    bar: {
+        alignSelf: 'stretch'
+    },
+    percentage: {
+        alignSelf: 'flex-end'
+    }
+});
+
+module.exports = Answer;

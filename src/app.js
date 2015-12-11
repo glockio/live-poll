@@ -1,17 +1,25 @@
 import React from 'react-native';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux/native';
+var IOSQuestionsList = require('./components/questions-list.ios');
+
 
 const {
- Navigator, View, Text
-} = React;
+    Navigator, View, Text, TouchableHighlight, TouchableOpacity, StyleSheet, ProgressViewIOS
+    } = React;
+
+var PollComponent = require('./components/poll');
+
+var LivePollContainer = require('./containers/livepoll.container');
 
 class AppRouter extends React.Component {
 
   renderScene(route, nav) {
     switch (route.name) {
-      case 'helloWorld':
-        return <View nav={nav} style={{backgroundColor:"green", flex:1, alignSelf:'center', justifyContent:'center'}}><Text>Hello World</Text></View>;
+      case 'currentQ':
+        return <LivePollContainer navigator={nav}/>;
+      case 'questionList':
+        return <IOSQuestionsList navigator={nav} />;
       default:
         return <View><Text>Hello World</Text></View>;
     }
@@ -20,7 +28,7 @@ class AppRouter extends React.Component {
   render(){
     return(
       <Navigator
-       initialRoute={ { name: "helloWorld"} }
+       initialRoute={ { name: "currentQ"} }
        renderScene={this.renderScene.bind(this)}
        configureScene={ (route) => {
          if (route.sceneConfig) {
