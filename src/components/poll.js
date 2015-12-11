@@ -6,8 +6,7 @@ const {
     Navigator, View, Text, TouchableHighlight, TouchableOpacity, StyleSheet, ProgressBarAndroid
     } = React;
 
-var AndroidAnswer = require('./answer.android');
-var IOSAnswer = require('./answer.ios');
+var Answer = require('./answer');
 
 var {Platform} = React;
 
@@ -25,12 +24,7 @@ class Poll extends React.Component {
       // console.log("single answer ", answer);
       // console.log("total votes ", totalVotes);
       //return null;
-      if(Platform.OS === 'ios') {
-        return<IOSAnswer answer={answer} onPress={this.props.onPress} totalVoteCount={totalVotes}/>
-      } else {
-        console.log("RENDEING FOR ANDROID")
-        return <AndroidAnswer answer={answer} onPress={this.props.onPress} totalVoteCount={totalVotes}/>;
-      }
+      return<Answer answer={answer} onPress={this.props.onPress} totalVoteCount={totalVotes}/>
     }
 
     renderAnswer0 (answersJSON) {

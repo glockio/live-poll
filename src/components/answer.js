@@ -14,7 +14,8 @@ class Answer extends React.Component {
     super(props);
 
     this.state = {
-      progress: 0.1
+      progress: 0.0,
+      voted: false
     }
   }
 
@@ -27,7 +28,6 @@ class Answer extends React.Component {
 
   componentDidMount() {
     this.setProgressStateFromProps(this.props.totalVoteCount, this.props.answer)
-
   }
 
   componentWillReceiveProps(nextProps) {
@@ -35,28 +35,33 @@ class Answer extends React.Component {
   }
 
   render() {
-    var answer = this.props.answer;
-    console.log("answer: " + answer);
-    var onPress = this.props.onPress;
+
+    var onPress = function() {
+      this.setState((state) => (
+      {voted: !state.voted}
+      ));
+      this.props.onPress(this.props.answer.answerKey);
+    }.bind(this);
+
     return (
       <View>
         <TouchableHighlight
-          style={styles.answer}
+          style={[styles.answer, this.state.voted && styles.voted]}
           activeOpacity={1}
           animationVelocity={0}
           underlayColor="#187AAD"
           onPress={onPress}>
           <Text style={styles.label}>
-            {answer.text}
+            {this.props.answer.text}
           </Text>
         </TouchableHighlight>
         <View style={styles.result}>
           <ProgressBar
             backgroundStyle={{backgroundColor: '#cccccc', borderRadius: 2}}
-            style={{marginTop: 10, width: 200}}
+            style={{marginTop: 10, width: 220}}
             progress={this.state.progress}/>
           <Text style={styles.percentage}>
-                    {(this.state.progress * 100).toFixed(2)}
+                    {(this.state.progress * 100).toFixed(2)}%
           </Text>
         </View>
       </View>
@@ -85,6 +90,9 @@ var styles = StyleSheet.create({
     borderColor: 'rgba(0,0,0,0.2)',
     borderWidth: 1,
     borderStyle: 'solid'
+  },
+  voted: {
+    backgroundColor: '#FF9100',
   },
   label: {
     fontSize: 20,
