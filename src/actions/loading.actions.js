@@ -85,6 +85,7 @@ export function createPoll (question, answers) {
         answerRef.push({text: answer})
     });
     fireRef.child('openPollId').update(newPoll.key());
+    dispatch({type: "CREATE_POLL", loading: {isLoading: false, message: "Created new poll"}});
     //swap the openPollId
 
 }
