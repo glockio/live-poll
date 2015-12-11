@@ -16,11 +16,12 @@ const createStoreWithMiddleware = applyMiddleware(
     thunk
 )(createStore);
 
-store.dispatch(UserActions.setUserId());
-store.dispatch(UserActions.loadVotingHistory());
+
 // Init Store with root reducer
 const store = createStoreWithMiddleware(rootReducer);
 
+store.dispatch(UserActions.setUserId());
+store.dispatch(UserActions.loadVotingHistory());
 // Connect to Firebase
 const rootRef = new Firebase('https://sizzling-heat-4406.firebaseio.com/');
 
