@@ -60,7 +60,7 @@ export function getOpenPoll (fireRef) {
                         openPoll.answers[answerKey]["voteCount"] = voteCount;
                     })
                 }
-                openPoll.answers['totalVotes'] = totalVotes;
+                openPoll['totalVotes'] = totalVotes;
                 dispatch({type: "GET_OPEN_POLL", loading: {isLoading: false, message: "Live Poll Loaded"}, openPoll: openPoll})
             });
         })
