@@ -5,46 +5,45 @@ import * as UserActions from "./user.actions";
 // For some conventions on actions https://github.com/acdlite/flux-standard-action
 
 export function postVote (fireRef, userId, answerId) {
+
     return (dispatch, getState) => {
-      dispatch(
-        {
-          type: "POST_VOTE",
-          loading: {isLoading: true, message: "Sending Vote: "+answerId}
-        });
+      dispatch({
+        type: "POST_VOTE",
+        loading: {isLoading: true, message: "Sending Vote: "+answerId}
+      });
 
-        const state = getState();
-
-        const openPollId = state.get('openPollId');
-
-        const hasVoted = state.get('votingHistory').get(openPollId);
+      const state = getState();
+      const openPollId = state.get('openPollId');
+      const hasVoted = state.get('votingHistory').get(openPollId);
 
 
-        if (hasVoted) {
-          dispatch(
-            {
-              type: "POST_VOTE",
-              loading: {isLoading: false, message: "You have already voted"}
-            });
-
-          console.log("YOU HAVE ALREDY VOTED");
-          return; // exit early and do not post to firebase
-        }
-
-        var voteRef = fireRef.child('votes').child(answerId).once('value', (payload) => {
-          var currentVotes = [];
-          if (payload.val()) {
-            currentVotes = payload.val();
-          }
-          currentVotes.push({userId: userId});
-          fireRef.child('votes').child(answerId).update(currentVotes);
-          dispatch({
+      if (hasVoted) {
+        dispatch(
+          {
             type: "POST_VOTE",
-            loading: {isLoading: false, message: "Vote Casted"},
-            votes: currentVotes});
+            loading: {isLoading: false, message: "You have already voted"}
+          });
 
-          //  Update user vote history
-          dispatch(UserActions.updateVotingHistory(answerId, openPollId))
+        console.log("YOU HAVE ALREDY VOTED");
+        return; // exit early and do not post to firebase
+      }
+
+      fireRef.child('votes').child(answerId).once('value', (payload) => {
+        var currentVotes = [];
+        if (payload.val()) {
+          currentVotes = payload.val();
+        }
+        currentVotes.push({userId: userId});
+        fireRef.child('votes').child(answerId).set(currentVotes);
+        dispatch({
+          type: "POST_VOTE",
+          loading: {isLoading: false, message: "Vote Casted"},
+          votes: currentVotes
         });
+
+        //  Update user vote history
+        dispatch(UserActions.updateVotingHistory(answerId, openPollId))
+      });
     }
 }
 
@@ -183,5 +182,17 @@ export function createPoll (question, answers) {
     fireRef.child('openPollId').update(newPoll.key());
     dispatch({type: "CREATE_POLL", loading: {isLoading: false, message: "Created new poll"}});
     //swap the openPollId
+}
 
+export function removePoll (pollId) {
+    dispatch({type: "REMOVE_POLL", loading: {isLoading: true, message: "Removing poll with id " + pollId}});
+    fireRef.child('polls').child(pollId).remove();
+    fireRef.child('openPollId').once('value', function(payload) {
+        var openPollId = payload.val();
+        if (openPollId == pollId) {
+            dispatch({type: "REMOVE_POLL", loading: {isLoading: false, message: "Cannot remove live poll"}, error: {isError: true, message: "Cannot delete live poll"}});
+        } else {
+            dispatch({type: "REMOVE_POLL", loading: {isLoading: false, message: "Removed poll with id " + pollId}});
+        }
+    });
 }

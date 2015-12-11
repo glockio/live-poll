@@ -11,8 +11,7 @@ var PollComponent = require('../components/poll');
 
 class LivePollContainer extends Component {
 
-  getOpenPoll(snapShot) {
-    const value = snapShot.val();
+  getOpenPoll() {
     this.props.getOpenPoll(this.props.fireRef);
   }
 
@@ -21,18 +20,16 @@ class LivePollContainer extends Component {
     this.props.getOpenPoll(fireRef);
 
     fireRef.child('openPollId').on('child_changed', this.getOpenPoll.bind(this));
-    fireRef.child('votes').on('child_changed', this.getOpenPoll.bind(this));
+    fireRef.child('votes').on('value', this.getOpenPoll.bind(this));
   }
 
   componentWillUnmount() {
     const {fireRef} = this.props;
     fireRef.child('openPollId').off('child_changed', this.getOpenPoll.bind(this));
-    fireRef.child('votes').off('child_changed', this.getOpenPoll.bind(this));
+    fireRef.child('votes').off('value', this.getOpenPoll.bind(this));
   }
 
   onVote(answerId) {
-    console.log("vote !");
-
     var userId = this.props.userId;
     this.props.postVote(this.props.fireRef, userId, answerId);
   }
@@ -51,7 +48,9 @@ LivePollContainer.defaultProps = {
     answers: Map({
       text: ""
     })
-  })
+  }),
+
+  votes: Map({})
 };
 
 var styles = StyleSheet.create({

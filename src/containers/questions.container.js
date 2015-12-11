@@ -6,7 +6,7 @@ import {connect} from 'react-redux/native';
 import QuestionsList from '../components/questions-list';
 import Firebase from 'firebase';
 import * as Actions from '../actions/loading.actions';
-const {Navigator, Text, View, Component} = React;
+const {Navigator, Text, View, Component, BackAndroid} = React;
 
 
 class QuestionsContainer extends React.Component {
@@ -25,13 +25,28 @@ class QuestionsContainer extends React.Component {
       // for right now just reset collection but can refactor later to listen to correct events
       this.props.setPolls(snapShot.val());
     });
+
+    // listen for Android back press events
+    BackAndroid.addEventListener('hardwareBackPress', () => {
+      this.props.navigator.pop();
+      return true;
+    });
+  }
+
+  componentWillUnmount() {
+    const {rootFireRef} = this.props;
+
+    rootFireRef.child('polls').off('value', (snapShot) => {
+      // for right now just reset collection but can refactor later to listen to correct events
+      this.props.setPolls(snapShot.val());
+    });
   }
 
   render(){
     const {questions, navigator} = this.props;
     return(
       <View>
-        <QuestionsList  navigator={navigator} questions={questions} onPollClick={this.onClickSinglePoll.bind(this)}/>
+        <QuestionsList navigator={navigator} questions={questions} onPollClick={this.onClickSinglePoll.bind(this)}/>
       </View>
     );
   }

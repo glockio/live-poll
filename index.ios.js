@@ -26,7 +26,7 @@ store.dispatch(UserActions.loadVotingHistory());
 
 console.log(store.getState().toJS());
 
-class reactNativeTest extends Component {
+class LivePollParticipant extends Component {
 
   // Injects redux store to all children
   render(){
@@ -38,4 +38,4 @@ class reactNativeTest extends Component {
   }
 }
 
-AppRegistry.registerComponent('reactNativeTest', () => reactNativeTest);
+AppRegistry.registerComponent('LivePollParticipant', () => LivePollParticipant);

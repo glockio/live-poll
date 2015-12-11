@@ -38,7 +38,9 @@ export const loadVotingHistory = () => {
 
   return (dispatch) =>  {
     console.log("TRYING TO LOAD VOTE HISTORY")
-    LocalStore.get('votingHistory').then( (votingHistory={}) => {
+    LocalStore.get('votingHistory').then( (votingHistory) => {
+
+      votingHistory = votingHistory || {};
       dispatch({ type: "LOAD_VOTING_HISTORY", votingHistory})
     });
 

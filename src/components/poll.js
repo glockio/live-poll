@@ -3,11 +3,13 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux/native';
 
 const {
-    Navigator, View, Text, TouchableHighlight, TouchableOpacity, StyleSheet, ProgressBarAndroid
+    Navigator, View, ScrollView, Text, TouchableHighlight, TouchableOpacity, StyleSheet, ProgressBarAndroid
     } = React;
 
-var AndroidAnswer = require('./answer.android');
-var IOSAnswer = require('./answer.ios');
+
+var Answer = require('./answer');
+var Dimensions = require('Dimensions');
+var windowSize = Dimensions.get('window');
 
 var {Platform} = React;
 
@@ -25,12 +27,7 @@ class Poll extends React.Component {
       // console.log("single answer ", answer);
       // console.log("total votes ", totalVotes);
       //return null;
-      if(Platform.OS === 'ios') {
-        return<IOSAnswer answer={answer} onPress={this.props.onPress} totalVoteCount={totalVotes}/>
-      } else {
-        console.log("RENDEING FOR ANDROID")
-        return <AndroidAnswer answer={answer} onPress={this.props.onPress} totalVoteCount={totalVotes}/>;
-      }
+      return<Answer answer={answer} onPress={this.props.onPress} totalVoteCount={totalVotes}/>
     }
 
     renderAnswer0 (answersJSON) {
@@ -49,19 +46,24 @@ class Poll extends React.Component {
       console.log(answers.toJS());
       const questionText = openPoll.get("questionText");
 
-        return (
-            <View style={styles.container}>
-                <Text style={styles.question}>
-                  {questionText}
-                </Text>
-                <View style={styles.buttons}>
-                  {this.renderAnswer0(answers.toJS())}
-                </View>
-                <TouchableHighlight onPress={this._goToPastPolls.bind(this)} style={styles.pastPolls}>
-                    <Text style={styles.flip}>Past Polls</Text>
-                </TouchableHighlight>
+      return (
+        <View style={styles.container}>
+          <ScrollView style={styles.scrollView}>
+            <View style={styles.questionWrapper}>
+              <Text style={styles.question}>
+                {questionText}
+              </Text>
+              <View style={styles.buttons}>
+                {this.renderAnswer0(answers.toJS())}
+                <Text style={styles.totalvotes}>(Total # of votes: {this.props.openPoll.get("totalVotes")})</Text>
+              </View>
             </View>
-        );
+          </ScrollView>
+          <TouchableHighlight onPress={this._goToPastPolls.bind(this)} style={styles.pastPolls}>
+            <Text style={styles.flip}>Past Polls</Text>
+          </TouchableHighlight>
+        </View>
+      );
     }
 }
 
@@ -71,9 +73,13 @@ Poll.defaultProps = {
 };
 
 var styles = StyleSheet.create({
+    scrollView: {
+        flex: 1
+    },
     container: {
         flex: 1,
-        justifyContent: 'center',
+        height: windowSize.height,
+        justifyContent: 'space-between',
         alignItems: 'stretch',
         backgroundColor: '#ffffff',
         paddingTop: 50,
@@ -84,13 +90,15 @@ var styles = StyleSheet.create({
         alignItems: 'stretch',
         padding: 50
     },
+    questionWWrapper: {
+        flex: 1
+    },
     question: {
         fontSize: 30,
         textAlign: 'center',
         margin: 10
     },
     pastPolls: {
-        flex: 1,
         margin: 0,
         justifyContent: 'flex-end'
     },
@@ -101,6 +109,9 @@ var styles = StyleSheet.create({
         borderColor: 'rgba(0,0,0,0.2)',
         color: '#ffffff',
         textAlign: 'center',
+    },
+    totalvotes: {
+        textAlign: 'right'
     }
 });
 
