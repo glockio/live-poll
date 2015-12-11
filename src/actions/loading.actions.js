@@ -75,3 +75,18 @@ export function getVotesForAnswer (answerId) {
         dispatch({type: "GET_VOTES_FOR_ANSWER", loading: {isLoading: true, message: "Loaded answers for " + answerId}, answer: data.keys().length});
     })
 }
+
+export function createPoll (question, answers) {
+    dispatch({type: "PUT_CREATE_POLL", loading: {isLoading: true, message: "Creating new poll"}});
+    //get the current live poll and make it dead
+
+    //create the new live poll
+    var newPoll = fireRef.child('poll').push({answers: {}, closed: false, publishedAt: Date.now(), questionText:question});
+    var answerRef = newPoll.child('poll').child(newPoll).child('answers');
+    answers.map((answer) => {
+        answerRef.push({text: answer})
+    });
+    fireRef.child('openPollId').update(newPoll.key());
+    //swap the openPollId
+
+}
