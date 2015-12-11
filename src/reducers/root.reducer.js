@@ -97,6 +97,14 @@ export default function rootReducer(state=initialState, action) {
       }
     }
 
+    case "GET_ANSWERS_VOTES": {
+      if (action.loading.isLoading || action.error) {
+        return state.merge({loading: action.loading, error: action.error});
+      } else {
+        return state.merge({votesForAnswer: action.votesForAnswer, loading: action.loading, error: action.error});
+      }
+    }
+
     case "SET_USER_ID": {
       var result =  state.set('userId', action.userId);
       return result;

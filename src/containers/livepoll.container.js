@@ -13,6 +13,8 @@ class LivePollContainer extends Component {
     console.log(fireRef);
     this.props.getPolls(fireRef);
 
+    //this.props.getAnswersVotes(fireRef, "-K5CpNK_ZtZQj3P_t4Hu");
+
     //fireRef.child('polls').on('child_changed', (snapShot) => {
     //  const value = snapShot.val();
     //  this.props.setCount(value);
@@ -72,7 +74,8 @@ const mapDispatchToProps = (dispatch) => {
   const fireRef = new Firebase('https://sizzling-heat-4406.firebaseio.com/');
   return {
     getPolls: bindActionCreators(actions.getPolls, dispatch),
-    getLivePollId: bindActionCreators(actions.getLivePollId, dispatch)
+    getLivePollId: bindActionCreators(actions.getLivePollId, dispatch),
+    //getAnswersVotes: bindActionCreators(actions.getAnswersVotes, dispatch),
   }
 };
 
