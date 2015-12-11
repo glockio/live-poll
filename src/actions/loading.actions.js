@@ -13,6 +13,10 @@ export function postVote (userId, answerId) {
     }
 }
 
+export function setPolls (polls) {
+   return {type: "SET_POLLS", polls}
+}
+
 export function getPolls (fireRef) {
     return (dispatch) => {
         dispatch({type: "GET_POLLS", loading: {isLoading: true, message: "Loading polls"}});

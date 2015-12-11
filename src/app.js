@@ -1,9 +1,7 @@
 import React from 'react-native';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux/native';
-var IOSQuestionsList = require('./components/questions-list.ios');
-
-
+import QuestionsContainer from './containers/questions.container';
 const {
     Navigator, View, Text, TouchableHighlight, TouchableOpacity, StyleSheet, ProgressViewIOS
     } = React;
@@ -19,7 +17,7 @@ class AppRouter extends React.Component {
       case 'currentQ':
         return <LivePollContainer navigator={nav}/>;
       case 'questionList':
-        return <IOSQuestionsList navigator={nav} />;
+        return <QuestionsContainer navigator={nav} />;
       default:
         return <View><Text>Hello World</Text></View>;
     }

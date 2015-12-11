@@ -3,7 +3,7 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux/native';
 import * as actions from '../actions/loading.actions';
 import {Map, Seq, List,OrderedMap, Record} from 'immutable';
-import Firebase from 'firebase';
+
 const {Navigator, Text, View, StyleSheet, Component, TouchableHighlight} = React;
 
 var {Platform} = React;

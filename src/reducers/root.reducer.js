@@ -42,6 +42,10 @@ export default function rootReducer(state=initialState, action) {
       }
     }
 
+    case "SET_POLLS": {
+      return state.merge({polls: action.polls});
+    }
+
     case "GET_LIVE_POLL_ID": {
       if (action.loading.isLoading) {
         return state.merge({loading: action.loading, error: action.error});

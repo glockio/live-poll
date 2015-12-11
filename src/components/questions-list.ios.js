@@ -92,19 +92,7 @@ var styles = StyleSheet.create({
 });
 
 QuestionsList.defaultProps = {
-  questions: Immutable.fromJS([
-    {
-      questionText: 'Question 1'
-    },
-    {
-      questionText: 'Question 2'
-    },
-    {
-      questionText: 'Question 3'
-    },
-    {
-      questionText: 'Question 4'
-    }
-  ])
+  questions: Immutable.Map({}),
 };
+
 module.exports = QuestionsList;
