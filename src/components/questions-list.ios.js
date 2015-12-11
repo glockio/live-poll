@@ -35,14 +35,26 @@ class QuestionsList extends React.Component {
         easing="easeOutCubic" />
     );
   }
+
+  _goToLivePoll() {
+    this.props.navigator.pop();
+  }
+
   render() {
     let dataSource = this._dataSource.cloneWithRows(this.props.questions.toArray());
 
     return (
-      <View style={styles.container}>
-        <ListView style={styles.listView}
-          dataSource={dataSource}
-          renderRow={this._renderRow} />
+      <View>
+        <View style={styles.container}>
+          <ListView style={styles.listView}
+            dataSource={dataSource}
+            renderRow={this._renderRow} />
+        </View>
+        <View style={styles.container}>
+          <TouchableHighlight onPress={this._goToLivePoll.bind(this)} style={styles.pastPolls}>
+              <Text>View Live</Text>
+          </TouchableHighlight>
+        </View>
       </View>
     );
   }
@@ -62,6 +74,20 @@ var styles = StyleSheet.create({
     flex: 1,
     borderBottomWidth: 1,
     padding: 15
+  },
+  pastPolls: {
+    flex: 1,
+    borderRadius: 10,
+    padding: 5,
+    margin: 10,
+    backgroundColor: '#00AEEF',
+    shadowColor: '#1a1a1a',
+    shadowOffset: {width: 2, height: 2},
+    shadowOpacity: 0.5,
+    shadowRadius: 5,
+    borderColor: 'rgba(0,0,0,0.2)',
+    borderWidth: 1,
+    borderStyle: 'solid'
   }
 });
 

@@ -12,6 +12,9 @@ var IOSAnswer = require('./answer.ios');
 var {Platform} = React;
 
 class Poll extends React.Component {
+    _goToPastPolls() {
+       this.props.navigator.push({name: "questionList"});
+    }
 
     constructor(props) {
         super(props);
@@ -32,6 +35,9 @@ class Poll extends React.Component {
                 <View style={styles.buttons}>
                     {answers.map(this.renderAnswer)}
                 </View>
+                <TouchableHighlight onPress={this._goToPastPolls.bind(this)} style={styles.pastPolls}>
+                    <Text>View Past Polls</Text>
+                </TouchableHighlight>
             </View>
         );
     }
@@ -67,6 +73,19 @@ var styles = StyleSheet.create({
         fontSize: 30,
         textAlign: 'center',
         margin: 10
+    },
+    pastPolls: {
+        borderRadius: 10,
+        padding: 5,
+        margin: 10,
+        backgroundColor: '#00AEEF',
+        shadowColor: '#1a1a1a',
+        shadowOffset: {width: 2, height: 2},
+        shadowOpacity: 0.5,
+        shadowRadius: 5,
+        borderColor: 'rgba(0,0,0,0.2)',
+        borderWidth: 1,
+        borderStyle: 'solid'
     }
 });
 
