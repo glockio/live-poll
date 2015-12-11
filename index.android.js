@@ -6,6 +6,8 @@ import App from './src/app';
 import thunk from 'redux-thunk';
 import Firebase from 'firebase';
 
+import * as UserActions from './src/actions/user.actions.js';
+
 
 const {AppRegistry, Component} = React; // React Must be defined;
 
@@ -14,6 +16,8 @@ const createStoreWithMiddleware = applyMiddleware(
     thunk
 )(createStore);
 
+store.dispatch(UserActions.setUserId());
+store.dispatch(UserActions.loadVotingHistory());
 // Init Store with root reducer
 const store = createStoreWithMiddleware(rootReducer);
 
