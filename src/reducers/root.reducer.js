@@ -113,6 +113,14 @@ export default function rootReducer(state=initialState, action) {
         return state.merge({votesForAnswer: action.votesForAnswer, loading: action.loading, error: action.error});
       }
     }
+
+    case "REMOVE_POLL": {
+      if (action.loading.isLoading || action.error) {
+        return state.merge({loading: action.loading, error: action.error});
+      } else {
+        return state.merge({loading: action.loading, error: action.error});
+      }
+    }
   }
   return state;
 }
