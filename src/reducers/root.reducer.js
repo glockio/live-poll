@@ -56,6 +56,14 @@ export default function rootReducer(state=initialState, action) {
       }
     }
 
+    case "GET_OPEN_POLL": {
+      if (action.loading.isLoading) {
+        return state.merge({loading: action.loading, error: action.error});
+      } else {
+        return state.merge({openPoll: action.openPoll, loading: action.loading, error: action.error});
+      }
+    }
+
     case "POST_VOTE": {
       if (action.loading.isLoading) {
         return state.merge({loading: action.loading, error: action.error});
