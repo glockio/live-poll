@@ -4,8 +4,7 @@ import {Provider} from 'react-redux/native';
 import rootReducer from './src/reducers/root.reducer';
 import App from './src/app';
 import thunk from 'redux-thunk';
-import Firebase from 'firebase';
-
+import * as UserActions from './src/actions/user.actions.js';
 
 const {AppRegistry, Component} = React; // React Must be defined;
 
@@ -18,16 +17,8 @@ const createStoreWithMiddleware = applyMiddleware(
 const store = createStoreWithMiddleware(rootReducer);
 
 // Connect to Firebase
-const rootRef = new Firebase('https://sizzling-heat-4406.firebaseio.com/');
+store.dispatch(UserActions.setUserId());
 
-// Login User
-rootRef.authAnonymously(function(error, authData) {
-  if (error) {
-    console.log("Login Failed!", error);
-  } else {
-    store.dispatch({type: "SET_USER_ID", userId: authData.uid});
-  }
-});
 
 console.log(store.getState().toJS());
 
