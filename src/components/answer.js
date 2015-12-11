@@ -34,6 +34,17 @@ class Answer extends React.Component {
     this.setProgressStateFromProps(nextProps.totalVoteCount, nextProps.answer)
   }
 
+  renderProgressValue() {
+    if (this.state.progress == 0) {
+      return null;
+    } else {
+      return (
+        <Text style={styles.percentage}>
+          {(this.state.progress * 100).toFixed(2)}%
+        </Text>
+      );
+    }
+  }
   render() {
 
     var onPress = function() {
@@ -60,9 +71,7 @@ class Answer extends React.Component {
             backgroundStyle={{backgroundColor: '#cccccc', borderRadius: 2}}
             style={{marginTop: 10, width: 220}}
             progress={this.state.progress}/>
-          <Text style={styles.percentage}>
-                    {(this.state.progress * 100).toFixed(2)}%
-          </Text>
+          {this.renderProgressValue()}
         </View>
       </View>
     );
