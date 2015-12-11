@@ -28,7 +28,7 @@ class Answer extends React.Component {
         }.bind(this);
 
         //var progress = 0;
-        var progress = (answer.voteCount / this.props.totalVoteCount);
+        var progress = (this.props.answer.voteCount / this.props.totalVoteCount);
 
         return (
             <View>
