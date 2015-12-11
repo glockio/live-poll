@@ -31,12 +31,7 @@ const initialState = Map({
     })
   }),
 
-  votes: {
-    'answer1Id': {
-      voteId: {userId: "09839083"},
-      voteId: {userId: "394u3098a9"}
-    }
-  }
+  votes: Map({})
 });
 
 

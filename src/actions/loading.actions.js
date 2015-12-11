@@ -9,13 +9,13 @@ export function postVote (fireRef, userId, answerId) {
             type: "POST_VOTE",
             loading: {isLoading: true, message: "Sending Vote: "+answerId}
           });
-        var voteRef = fireRef.child('votes').child(answerId).once('value', (payload) => {
+        fireRef.child('votes').child(answerId).once('value', (payload) => {
           var currentVotes = [];
           if (payload.val()) {
             currentVotes = payload.val();
           }
           currentVotes.push({userId: userId});
-          fireRef.child('votes').child(answerId).update(currentVotes);
+          fireRef.child('votes').child(answerId).set(currentVotes);
           dispatch({
             type: "POST_VOTE",
             loading: {isLoading: false, message: "Vote Casted"},
