@@ -23,7 +23,7 @@ class QuestionsList extends React.Component {
     );
 
     var content = (
-      <View>
+      <View style={styles.rowhidden}>
         <Text>This content is hidden in the accordion</Text>
       </View>
     );
@@ -44,17 +44,13 @@ class QuestionsList extends React.Component {
     let dataSource = this._dataSource.cloneWithRows(this.props.questions.toArray());
 
     return (
-      <View>
-        <View style={styles.container}>
-          <ListView style={styles.listView}
+      <View style={styles.container}>
+          <ListView contentContainerStyle={styles.listView}
             dataSource={dataSource}
             renderRow={this._renderRow} />
-        </View>
-        <View style={styles.container}>
           <TouchableHighlight onPress={this._goToLivePoll.bind(this)} style={styles.pastPolls}>
-              <Text>View Live</Text>
+            <Text style={styles.flip}>Current Poll</Text>
           </TouchableHighlight>
-        </View>
       </View>
     );
   }
@@ -62,32 +58,36 @@ class QuestionsList extends React.Component {
 
 var styles = StyleSheet.create({
   container: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 20
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'stretch',
+      backgroundColor: '#ffffff',
+      fontFamily: 'Helvetica Neue'
   },
   listView: {
-    borderTopWidth: 1
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'stretch',
   },
   row: {
-    flex: 1,
-    borderBottomWidth: 1,
-    padding: 15
+      padding: 15,
+      borderTopWidth: 1
+  },
+  rowhidden: {
+      padding: 15
   },
   pastPolls: {
-    flex: 1,
-    borderRadius: 10,
-    padding: 5,
-    margin: 10,
-    backgroundColor: '#00AEEF',
-    shadowColor: '#1a1a1a',
-    shadowOffset: {width: 2, height: 2},
-    shadowOpacity: 0.5,
-    shadowRadius: 5,
-    borderColor: 'rgba(0,0,0,0.2)',
-    borderWidth: 1,
-    borderStyle: 'solid'
+      flex: 1,
+      margin: 0,
+      justifyContent: 'flex-end'
+  },
+  flip: {
+      padding: 5,
+      fontSize: 20,
+      backgroundColor: '#242424',
+      borderColor: 'rgba(0,0,0,0.2)',
+      color: '#ffffff',
+      textAlign: 'center',
   }
 });
 

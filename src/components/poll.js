@@ -35,7 +35,7 @@ class Poll extends React.Component {
                     {answers.map(this.renderAnswer)}
                 </View>
                 <TouchableHighlight onPress={this._goToPastPolls.bind(this)} style={styles.pastPolls}>
-                    <Text>View Past Polls</Text>
+                    <Text style={styles.flip}>Past Polls</Text>
                 </TouchableHighlight>
             </View>
         );
@@ -60,7 +60,7 @@ var styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'stretch',
         backgroundColor: '#ffffff',
-        padding: 20,
+        paddingTop: 50,
         fontFamily: 'Helvetica Neue'
     },
     buttons: {
@@ -74,17 +74,17 @@ var styles = StyleSheet.create({
         margin: 10
     },
     pastPolls: {
-        borderRadius: 10,
+        flex: 1,
+        margin: 0,
+        justifyContent: 'flex-end'
+    },
+    flip: {
         padding: 5,
-        margin: 10,
-        backgroundColor: '#00AEEF',
-        shadowColor: '#1a1a1a',
-        shadowOffset: {width: 2, height: 2},
-        shadowOpacity: 0.5,
-        shadowRadius: 5,
+        fontSize: 20,
+        backgroundColor: '#242424',
         borderColor: 'rgba(0,0,0,0.2)',
-        borderWidth: 1,
-        borderStyle: 'solid'
+        color: '#ffffff',
+        textAlign: 'center',
     }
 });
 
