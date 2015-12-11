@@ -161,3 +161,9 @@ export function createPoll (question, answers) {
     //swap the openPollId
 
 }
+
+export function removePoll (pollId) {
+    dispatch({type: "REMOVE_POLL", loading: {isLoading: true, message: "Removing poll with id " + pollId}});
+    fireRef.child('polls').child(pollId).remove()
+    dispatch({type: "REMOVE_POLL", loading: {isLoading: false, message: "Removed poll with id " + pollId}});
+}
