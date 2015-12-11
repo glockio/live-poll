@@ -3,6 +3,8 @@ import Immutable from 'immutable';
 var _ = require('lodash');
 var Accordion = require('react-native-collapsible/Accordion');
 var Animatable = require('react-native-animatable');
+var Dimensions = require('Dimensions');
+var windowSize = Dimensions.get('window');
 
 const {
  StyleSheet, Navigator, View, ScrollView, Text, TextInput, TouchableHighlight
@@ -14,6 +16,8 @@ if(!StyleSheet.flatten) {
 class QuestionsList extends React.Component {
   constructor(props) {
     super(props);
+
+    this._changeQuestion = this._changeQuestion.bind(this);
   }
 
   _goToLivePoll() {
@@ -42,18 +46,25 @@ class QuestionsList extends React.Component {
     );
   }
 
+  _changeQuestion(index) {
+    let questions = this.props.questions.toArray();
+    console.log(questions[index].toJS());
+  }
+
   render() {
+    console.log(windowSize);
     let sections = this.props.questions.toArray();
     return (
         <View style={styles.container}>
-          <View style={styles.accordion}>
+          <ScrollView style={styles.scrollView}>
             <Accordion
               sections={sections} 
               renderHeader={this._renderQuestion}
               renderContent={this._renderResults}
               underlayColor='#333333'
-              easing="easeOutCubic"  />
-          </View>
+              easing="easeOutCubic"
+              onChange={this._changeQuestion}/>
+          </ScrollView>
           <TouchableHighlight onPress={this._goToLivePoll.bind(this)} style={styles.pastPolls}>
             <Text style={styles.flip}>Current Poll</Text>
           </TouchableHighlight>
@@ -63,9 +74,14 @@ class QuestionsList extends React.Component {
 }
 
 var styles = StyleSheet.create({
+  scrollView: {
+    flex: 1
+  },
   container: {
     flex: 1,
-    justifyContent: 'center',
+    flexDirection:'column',
+    height: windowSize.height,
+    justifyContent: 'flex-start',
     backgroundColor: '#ffffff',
     fontFamily: 'Helvetica Neue'
   },
@@ -86,7 +102,6 @@ var styles = StyleSheet.create({
     backgroundColor: 'rgba(245,252,255,1)'
   },
   pastPolls: {
-      flex: 1,
       margin: 0,
       justifyContent: 'flex-end'
   },

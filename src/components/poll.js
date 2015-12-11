@@ -6,7 +6,10 @@ const {
     Navigator, View, Text, TouchableHighlight, TouchableOpacity, StyleSheet, ProgressBarAndroid
     } = React;
 
+
 var Answer = require('./answer');
+var Dimensions = require('Dimensions');
+var windowSize = Dimensions.get('window');
 
 var {Platform} = React;
 
@@ -45,11 +48,13 @@ class Poll extends React.Component {
 
         return (
             <View style={styles.container}>
-                <Text style={styles.question}>
-                  {questionText}
-                </Text>
-                <View style={styles.buttons}>
-                  {this.renderAnswer0(answers.toJS())}
+                <View style={styles.questionWrapper}>
+                    <Text style={styles.question}>
+                      {questionText}
+                    </Text>
+                    <View style={styles.buttons}>
+                      {this.renderAnswer0(answers.toJS())}
+                    </View>
                 </View>
                 <TouchableHighlight onPress={this._goToPastPolls.bind(this)} style={styles.pastPolls}>
                     <Text style={styles.flip}>Past Polls</Text>
@@ -67,7 +72,8 @@ Poll.defaultProps = {
 var styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
+        height: windowSize.height,
+        justifyContent: 'space-between',
         alignItems: 'stretch',
         backgroundColor: '#ffffff',
         paddingTop: 50,
@@ -78,13 +84,15 @@ var styles = StyleSheet.create({
         alignItems: 'stretch',
         padding: 50
     },
+    questionWWrapper: {
+        flex: 1
+    },
     question: {
         fontSize: 30,
         textAlign: 'center',
         margin: 10
     },
     pastPolls: {
-        flex: 1,
         margin: 0,
         justifyContent: 'flex-end'
     },
