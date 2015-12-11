@@ -24,7 +24,7 @@ class Answer extends React.Component {
           this.setState((state) => (
             {voted: !state.voted}
           ));
-          this.props.onPress();
+          this.props.onPress(this.props.answer.answerKey);
         }.bind(this);
 
         //var progress = 0;

@@ -32,6 +32,7 @@ class Poll extends React.Component {
     renderAnswer0 (answersJSON) {
       var items = [];
       for (answerKey in answersJSON) {
+        answersJSON[answerKey]['answerKey'] = answerKey;
         items.push(this.renderAnswer(answersJSON[answerKey]));
       }
       return items;
@@ -40,7 +41,7 @@ class Poll extends React.Component {
     render(){
       const {openPoll, onPress} = this.props;
       const answers = openPoll.get("answers");
-      console.log(answers);
+      //console.log(answers);
       console.log(answers.toJS());
       const questionText = openPoll.get("questionText");
 

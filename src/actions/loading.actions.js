@@ -2,14 +2,25 @@
 
 // For some conventions on actions https://github.com/acdlite/flux-standard-action
 
-export function postVote (userId, answerId) {
+export function postVote (fireRef, userId, answerId) {
     return (dispatch) => {
         dispatch(
           {
             type: "POST_VOTE",
-            loading: {isLoading: true, message: "Sending Vote"}
+            loading: {isLoading: true, message: "Sending Vote: "+answerId}
           });
-        var voteRef = fireRef.child('votes');
+        var voteRef = fireRef.child('votes').child(answerId).once('value', (payload) => {
+          var currentVotes = [];
+          if (payload.val()) {
+            currentVotes = payload.val();
+          }
+          currentVotes.push({userId: userId});
+          fireRef.child('votes').child(answerId).update(currentVotes);
+          dispatch({
+            type: "POST_VOTE",
+            loading: {isLoading: false, message: "Vote Casted"},
+            votes: currentVotes});
+        });
     }
 }
 

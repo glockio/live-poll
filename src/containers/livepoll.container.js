@@ -3,6 +3,7 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux/native';
 import * as actions from '../actions/loading.actions';
 import {Map, Seq, List,OrderedMap, Record} from 'immutable';
+import LocalStore from 'react-native-simple-store';
 
 const {Navigator, Text, View, StyleSheet, Component, TouchableHighlight} = React;
 
@@ -32,13 +33,16 @@ class LivePollContainer extends Component {
 
   onVote(answerId) {
     console.log("vote !");
+
+    var userId = "123123123"; //this.props.userId;
+    this.props.postVote(this.props.fireRef, userId, answerId);
   }
 
   render(){
     if (this.props.loading.get("isLoading")) {
       return (<View style={styles.container}><Text style={styles.loadingText}>Loading ...</Text></View>);
     } else {
-      return (<PollComponent navigator={this.props.navigator} openPoll={this.props.openPoll} onPress={this.onVote}/>);
+      return (<PollComponent navigator={this.props.navigator} openPoll={this.props.openPoll} onPress={this.onVote.bind(this)}/>);
     }
   }
 }
@@ -75,13 +79,16 @@ const mapReduxStoreToProps = (reduxStore) => {
         fireRef: countRef,
         loading: reduxStore.get('loading'),
         error: reduxStore.get('error'),
-        openPoll: reduxStore.get('openPoll')
+        openPoll: reduxStore.get('openPoll'),
+        postVote: reduxStore.get('postVote'),
+        //userId: LocalStore.get('userId')
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getOpenPoll: bindActionCreators(actions.getOpenPoll, dispatch)
+    getOpenPoll: bindActionCreators(actions.getOpenPoll, dispatch),
+    postVote: bindActionCreators(actions.postVote, dispatch)
   }
 };
 
