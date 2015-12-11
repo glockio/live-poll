@@ -21,9 +21,8 @@ class Poll extends React.Component {
     }
 
     renderAnswer(answerData) {
-        return Platform.OS === 'ios' ? <IOSAnswer/> : <AndroidAnswer answer={answerData}/>;
+        return Platform.OS === 'ios' ? <IOSAnswer answer={answerData}/> : <AndroidAnswer answer={answerData}/>;
     }
-
 
     render(){
         var answers = this.props.answers;
