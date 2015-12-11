@@ -46,23 +46,24 @@ class Poll extends React.Component {
       console.log(answers.toJS());
       const questionText = openPoll.get("questionText");
 
-        return (
-            <View style={styles.container}>
-                <ScrollView style={styles.scrollView}>
-                    <View style={styles.questionWrapper}>
-                        <Text style={styles.question}>
-                          {questionText}
-                        </Text>
-                        <View style={styles.buttons}>
-                          {this.renderAnswer0(answers.toJS())}
-                        </View>
-                    </View>
-                </ScrollView>
-                <TouchableHighlight onPress={this._goToPastPolls.bind(this)} style={styles.pastPolls}>
-                    <Text style={styles.flip}>Past Polls</Text>
-                </TouchableHighlight>
+      return (
+        <View style={styles.container}>
+          <ScrollView style={styles.scrollView}>
+            <View style={styles.questionWrapper}>
+              <Text style={styles.question}>
+                {questionText}
+              </Text>
+              <View style={styles.buttons}>
+                {this.renderAnswer0(answers.toJS())}
+                <Text style={styles.totalvotes}>(Total # of votes: {this.props.openPoll.get("totalVotes")})</Text>
+              </View>
             </View>
-        );
+          </ScrollView>
+          <TouchableHighlight onPress={this._goToPastPolls.bind(this)} style={styles.pastPolls}>
+            <Text style={styles.flip}>Past Polls</Text>
+          </TouchableHighlight>
+        </View>
+      );
     }
 }
 
@@ -108,6 +109,9 @@ var styles = StyleSheet.create({
         borderColor: 'rgba(0,0,0,0.2)',
         color: '#ffffff',
         textAlign: 'center',
+    },
+    totalvotes: {
+        textAlign: 'right'
     }
 });
 
