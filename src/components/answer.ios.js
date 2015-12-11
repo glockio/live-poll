@@ -9,8 +9,12 @@ const {
 
 class Answer extends React.Component {
 
-    var answer = this.props.answer;
+    constructor(props) {
+        super(props);
+    }
+
     render() {
+        var answer = this.props.answer;
         return (
             <View>
                 <TouchableHighlight
