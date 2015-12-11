@@ -2,9 +2,9 @@ import {Map, Seq, List,OrderedMap, Record} from 'immutable';
 
 const initialState = Map({
   userId: null,
-
+  votingHistory: Map({}),
   loading: Map({
-    isLoading: true,
+    isLoading: false,
     message: "Loading ..."
   }),
 
@@ -51,7 +51,6 @@ export default function rootReducer(state=initialState, action) {
       if (action.loading.isLoading || ("error" in action)) {
         return state.merge({loading: action.loading, error: action.error});
       } else {
-        console.log(action.polls);
         return state.merge({polls: action.polls, loading: action.loading, error: action.error});
       }
     }
@@ -72,7 +71,7 @@ export default function rootReducer(state=initialState, action) {
       if (action.loading.isLoading) {
         return state.merge({loading: action.loading, error: action.error});
       } else {
-        return state.merge({openPoll: action.openPoll, loading: action.loading, error: action.error});
+        return state.merge({openPoll: action.openPoll, openPollId: openPollId, loading: action.loading, error: action.error});
       }
     }
 
@@ -112,6 +111,18 @@ export default function rootReducer(state=initialState, action) {
       } else {
         return state.merge({votesForAnswer: action.votesForAnswer, loading: action.loading, error: action.error});
       }
+    }
+
+    case "UPDATE_VOTING_HISTORY": {
+      return state.setIn(['votingHistory', action.pollId], action.answerId);
+    }
+
+    case "LOAD_VOTING_HISTORY" : {
+      return state.merge({votingHistory: action.votingHistory});
+    }
+
+    case "CLEAR_VOTING_HISTORY": {
+      return state.merge({votingHistory: {}});
     }
   }
   return state;

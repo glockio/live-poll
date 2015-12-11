@@ -20,6 +20,10 @@ const store = createStoreWithMiddleware(rootReducer);
 store.dispatch(UserActions.setUserId());
 
 
+// store.dispatch(UserActions.clearVotingHistory());
+store.dispatch(UserActions.loadVotingHistory());
+
+
 console.log(store.getState().toJS());
 
 class reactNativeTest extends Component {

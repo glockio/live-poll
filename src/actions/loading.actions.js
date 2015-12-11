@@ -1,14 +1,35 @@
+import * as UserActions from "./user.actions";
+
 
 
 // For some conventions on actions https://github.com/acdlite/flux-standard-action
 
 export function postVote (fireRef, userId, answerId) {
-    return (dispatch) => {
-        dispatch(
-          {
-            type: "POST_VOTE",
-            loading: {isLoading: true, message: "Sending Vote: "+answerId}
-          });
+    return (dispatch, getState) => {
+      dispatch(
+        {
+          type: "POST_VOTE",
+          loading: {isLoading: true, message: "Sending Vote: "+answerId}
+        });
+
+        const state = getState();
+
+        const openPollId = state.get('openPollId');
+
+        const hasVoted = state.get('votingHistory').get(openPollId);
+
+
+        if (hasVoted) {
+          dispatch(
+            {
+              type: "POST_VOTE",
+              loading: {isLoading: false, message: "You have already voted"}
+            });
+
+          console.log("YOU HAVE ALREDY VOTED");
+          return; // exit early and do not post to firebase
+        }
+
         var voteRef = fireRef.child('votes').child(answerId).once('value', (payload) => {
           var currentVotes = [];
           if (payload.val()) {
@@ -20,6 +41,9 @@ export function postVote (fireRef, userId, answerId) {
             type: "POST_VOTE",
             loading: {isLoading: false, message: "Vote Casted"},
             votes: currentVotes});
+
+          //  Update user vote history
+          dispatch(UserActions.updateVotingHistory(answerId, openPollId))
         });
     }
 }
@@ -74,7 +98,7 @@ export function getOpenPoll (fireRef) {
                     })
                 }
                 openPoll['totalVotes'] = totalVotes;
-                dispatch({type: "GET_OPEN_POLL", loading: {isLoading: false, message: "Live Poll Loaded"}, openPoll: openPoll})
+                dispatch({type: "GET_OPEN_POLL", loading: {isLoading: false, message: "Live Poll Loaded"}, openPoll: openPoll, openPollId: payload.key()})
             });
         })
     }
