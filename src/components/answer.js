@@ -61,7 +61,7 @@ class Answer extends React.Component {
     return (
       <View>
         <TouchableHighlight
-          style={[styles.answer, this.state.voted && styles.voted]}
+          style={[styles.answer, this.props.voted && styles.voted]}
           activeOpacity={1}
           animationVelocity={0}
           underlayColor="#187AAD"

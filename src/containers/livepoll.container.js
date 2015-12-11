@@ -38,7 +38,7 @@ class LivePollContainer extends Component {
     if (this.props.loading.get("isLoading")) {
       return (<View style={styles.container}><Text style={styles.loadingText}>Loading ...</Text></View>);
     } else {
-      return (<PollComponent navigator={this.props.navigator} openPoll={this.props.openPoll} onPress={this.onVote.bind(this)}/>);
+      return (<PollComponent navigator={this.props.navigator} votes={this.props.votes} userId={this.props.userId} openPoll={this.props.openPoll} onPress={this.onVote.bind(this)}/>);
     }
   }
 }
@@ -79,7 +79,8 @@ const mapReduxStoreToProps = (reduxStore) => {
         error: reduxStore.get('error'),
         openPoll: reduxStore.get('openPoll'),
         postVote: reduxStore.get('postVote'),
-        userId: reduxStore.get('userId')
+        userId: reduxStore.get('userId'),
+        votes: reduxStore.get('votes')
     };
 };
 

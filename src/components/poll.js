@@ -22,21 +22,33 @@ class Poll extends React.Component {
         super(props);
     }
 
-    renderAnswer(answer) {
+    renderAnswer(answer, hasVoted=false) {
       const totalVotes = this.props.openPoll.get("totalVotes");
-      // console.log("single answer ", answer);
-      // console.log("total votes ", totalVotes);
-      //return null;
-      return<Answer answer={answer} onPress={this.props.onPress} totalVoteCount={totalVotes}/>
+
+      return<Answer answer={answer} onPress={this.props.onPress} voted={hasVoted} totalVoteCount={totalVotes}/>
     }
 
     renderAnswer0 (answersJSON) {
       var items = [];
       for (answerKey in answersJSON) {
         answersJSON[answerKey]['answerKey'] = answerKey;
-        items.push(this.renderAnswer(answersJSON[answerKey]));
+
+        items.push(this.renderAnswer(answersJSON[answerKey], this.hasUserVotedOnAnswer(answerKey)));
       }
       return items;
+    }
+
+    hasUserVotedOnAnswer (answerId) {
+      var votes = this.props.votes.toJSON()[answerId];
+      if (votes){
+        for (vote in votes) {
+          if (votes[vote]['userId'] == this.props.userId) {
+            return true;
+          }
+        }
+      } else {
+        return false;
+      }
     }
 
     render(){

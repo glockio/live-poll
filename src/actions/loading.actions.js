@@ -35,10 +35,12 @@ export function postVote (fireRef, userId, answerId) {
         }
         currentVotes.push({userId: userId});
         fireRef.child('votes').child(answerId).set(currentVotes);
+        var allVotes = {};
+        allVotes[answerId] = currentVotes;
         dispatch({
           type: "POST_VOTE",
           loading: {isLoading: false, message: "Vote Casted"},
-          votes: currentVotes
+          votes: allVotes
         });
 
         //  Update user vote history
