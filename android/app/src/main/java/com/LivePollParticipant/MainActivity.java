@@ -30,7 +30,7 @@ public class MainActivity extends Activity implements DefaultHardwareBackBtnHand
                 .setInitialLifecycleState(LifecycleState.RESUMED)
                 .build();
 
-        mReactRootView.startReactApplication(mReactInstanceManager, "reactNativeTest", null);
+        mReactRootView.startReactApplication(mReactInstanceManager, "LivePollParticipant", null);
 
         setContentView(mReactRootView);
     }
