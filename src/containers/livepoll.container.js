@@ -3,7 +3,6 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux/native';
 import * as actions from '../actions/loading.actions';
 import {Map, Seq, List,OrderedMap, Record} from 'immutable';
-import LocalStore from 'react-native-simple-store';
 
 const {Navigator, Text, View, StyleSheet, Component, TouchableHighlight} = React;
 
@@ -34,7 +33,7 @@ class LivePollContainer extends Component {
   onVote(answerId) {
     console.log("vote !");
 
-    var userId = "123123123"; //this.props.userId;
+    var userId = this.props.userId;
     this.props.postVote(this.props.fireRef, userId, answerId);
   }
 
@@ -81,7 +80,7 @@ const mapReduxStoreToProps = (reduxStore) => {
         error: reduxStore.get('error'),
         openPoll: reduxStore.get('openPoll'),
         postVote: reduxStore.get('postVote'),
-        //userId: LocalStore.get('userId')
+        userId: reduxStore.get('userId')
     };
 };
 
