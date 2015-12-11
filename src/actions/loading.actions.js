@@ -78,6 +78,28 @@ export function getOpenPoll (fireRef) {
     }
 }
 
+export function updateSinglePollWithVotes (pollId, fireRef) {
+  return (dispatch) => {
+    dispatch({type: "UPDATE_SINGLE_POLL", loading: {isLoading: true, message: "Loading poll detail"}});
+    pollDetails = {};
+    fireRef.child('polls').child(pollId).once('value', (payload) => {
+      pollDetails = payload.val();
+      totalVotes = 0;
+      for (answerKey in pollDetails.answers){
+        fireRef.child('votes').child(answerKey).on('value', (payload) => {
+          var voteCount = 0;
+          if (payload.val()) {
+            voteCount = payload.val().length;
+          }
+          totalVotes += voteCount;
+          pollDetails.answers[answerKey]["voteCount"] = voteCount;
+        })
+      }
+      pollDetails['totalVotes'] = totalVotes;
+      dispatch({type: "UPDATE_SINGLE_POLL", loading: {isLoading: false, message: "Single Poll Updated"}, pollId: pollId, pollDetails: pollDetails})
+    });
+  }
+}
 
 export function getVotesForPoll (pollId) {
     return (dispatch) => {

@@ -24,6 +24,13 @@ const initialState = Map({
 
   polls: Map({}),
 
+  pollDetails: Map({
+    questionText: "abcd",
+    answers: Map({
+      text: ""
+    })
+  }),
+
   votes: {
     'answer1Id': {
       voteId: {userId: "09839083"},
@@ -66,6 +73,16 @@ export default function rootReducer(state=initialState, action) {
         return state.merge({loading: action.loading, error: action.error});
       } else {
         return state.merge({openPoll: action.openPoll, loading: action.loading, error: action.error});
+      }
+    }
+
+    case "UPDATE_SINGLE_POLL": {
+      if (action.loading.isLoading) {
+        return state.merge({loading: action.loading, error: action.error});
+      } else {
+        var polls = state.get("polls");
+        polls.updateIn(["polls", "pollId"], action.pollDetails);
+        return state.merge({polls: polls, oading: action.loading, error: action.error});
       }
     }
 

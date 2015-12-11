@@ -11,6 +11,11 @@ const {Navigator, Text, View, Component} = React;
 
 class QuestionsContainer extends React.Component {
 
+  onClickSinglePoll(pollId) {
+    const {rootFireRef} = this.props;
+    this.props.updateSinglePollWithVotes(pollId, rootFireRef);
+  }
+
   componentDidMount() {
 
     const {rootFireRef} = this.props;
@@ -26,7 +31,7 @@ class QuestionsContainer extends React.Component {
     const {questions, navigator} = this.props;
     return(
       <View>
-        <QuestionsList  navigator={navigator} questions={questions}/>
+        <QuestionsList  navigator={navigator} questions={questions} onPollClick={this.onClickSinglePoll.bind(this)}/>
       </View>
     );
   }
@@ -45,7 +50,8 @@ const mapReduxStoreToProps = (reduxStore) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     setPolls: bindActionCreators(Actions.setPolls, dispatch),
-    fetchPolls: bindActionCreators(Actions.getPolls, dispatch)
+    fetchPolls: bindActionCreators(Actions.getPolls, dispatch),
+    updateSinglePollWithVotes: bindActionCreators(Actions.updateSinglePollWithVotes, dispatch)
   }
 };
 
