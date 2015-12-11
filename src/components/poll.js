@@ -13,18 +13,24 @@ var {Platform} = React;
 
 class Poll extends React.Component {
 
-    render() {
-        var answer = Platform.OS === 'ios' ? <IOSAnswer/> : <AndroidAnswer/>;
+    constructor(props) {
+        super(props);
+    }
+
+    renderAnswer(answerData) {
+        return Platform.OS === 'ios' ? <IOSAnswer/> : <AndroidAnswer answer={answerData}/>;
+    }
+
+
+    render(){
+        var answers = this.props.answers;
         return (
             <View style={styles.container}>
                 <Text style={styles.question}>
                     Which quarter do you think will be Hootsuite's biggest in 2016?
                 </Text>
                 <View style={styles.buttons}>
-                    {answer}
-                    {answer}
-                    {answer}
-                    {answer}
+                    {answers.map(this.renderAnswer)}
                 </View>
             </View>
         );
@@ -34,7 +40,13 @@ class Poll extends React.Component {
 Poll.defaultProps = {
     onMePress: () => {
         console.log('Submit button pressed');
-    }
+    },
+    answers: [
+        {name: "test1", action:"test1"},
+        {name: "test2", action:"test2"},
+        {name: "test3", action:"test3"},
+        {name: "test4", action:"test4"}
+    ]
 };
 
 var styles = StyleSheet.create({
@@ -54,8 +66,8 @@ var styles = StyleSheet.create({
     question: {
         fontSize: 30,
         textAlign: 'center',
-        margin: 10,
-    },
+        margin: 10
+    }
 });
 
 module.exports = Poll;

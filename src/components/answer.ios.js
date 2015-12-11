@@ -9,6 +9,7 @@ const {
 
 class Answer extends React.Component {
 
+    var answer = this.props.answer;
     render() {
         return (
             <View>
@@ -19,7 +20,7 @@ class Answer extends React.Component {
                     underlayColor="#187AAD"
                     onPress={() => console.log('Q2')}>
                     <Text style={styles.label}>
-                        Q2
+                        {answer.name}
                     </Text>
                 </TouchableHighlight>
                 <View style={styles.result}>
@@ -29,7 +30,6 @@ class Answer extends React.Component {
                     </Text>
                 </View>
             </View>
-
         );
     }
 }

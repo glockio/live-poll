@@ -9,7 +9,12 @@ const {
 
 class Answer extends React.Component {
 
+    constructor(props) {
+        super(props);
+    }
+
     render() {
+        var answer = this.props.answer;
         return (
             <View>
                 <TouchableHighlight
@@ -17,19 +22,18 @@ class Answer extends React.Component {
                     activeOpacity={1}
                     animationVelocity={0}
                     underlayColor="#187AAD"
-                    onPress={() => console.log('Q2')}>
+                    onPress={ () => onMePress() }>
                     <Text style={styles.label}>
-                        Q2
+                        {answer.name}
                     </Text>
                 </TouchableHighlight>
                 <View style={styles.result}>
-                    <ProgressBarAndroid styleAttr="Horizontal" progressTintColor="#D04949" progress={0.2} trackTintColor="#ffffff"/>
+                    <ProgressBarAndroid styleAttr="Horizontal" progressTintColor="#D04949" progress={0.5} trackTintColor="#ffffff"/>
                     <Text style={styles.percentage}>
                         20%
                     </Text>
                 </View>
             </View>
-
         );
     }
 }
