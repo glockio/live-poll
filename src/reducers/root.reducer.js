@@ -77,7 +77,7 @@ export default function rootReducer(state=initialState, action) {
       } else {
         var polls = state.get("polls");
         var newPolls = polls.setIn([action.pollId], action.pollDetails);
-        return state.merge({polls: newPolls, oading: action.loading, error: action.error});
+        return state.merge({polls: newPolls, loading: action.loading, error: action.error});
       }
     }
 

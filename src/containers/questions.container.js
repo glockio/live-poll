@@ -33,6 +33,15 @@ class QuestionsContainer extends React.Component {
     });
   }
 
+  componentWillUnmount() {
+    const {rootFireRef} = this.props;
+
+    rootFireRef.child('polls').off('value', (snapShot) => {
+      // for right now just reset collection but can refactor later to listen to correct events
+      this.props.setPolls(snapShot.val());
+    });
+  }
+
   render(){
     const {questions, navigator} = this.props;
     return(
