@@ -72,7 +72,7 @@ class Answer extends React.Component {
         </TouchableHighlight>
         <View style={styles.result}>
             <ProgressBar
-              backgroundStyle={{backgroundColor: '#cccccc', borderRadius: 2}}
+              backgroundStyle={{backgroundColor: '#ffffff', borderRadius: 0}}
               style={{marginTop: 10, marginLeft: 15, width: windowSize.width-130}}
               easingDuration={0}
               progress={this.state.progress}/>
@@ -93,14 +93,13 @@ Answer.defaultProps = {
 
 var styles = StyleSheet.create({
   answer: {
-    borderRadius: 10,
     padding: 5,
-    margin: 10,
+    margin: 5,
     backgroundColor: '#00AEEF',
     shadowColor: '#1a1a1a',
     shadowOffset: {width: 2, height: 2},
     shadowOpacity: 0.5,
-    shadowRadius: 5,
+    shadowRadius: 2,
     borderColor: 'rgba(0,0,0,0.2)',
     borderWidth: 1,
     borderStyle: 'solid'
@@ -115,7 +114,7 @@ var styles = StyleSheet.create({
   },
   result: {
     flex: 1,
-    marginBottom: 10,
+    marginBottom: 20,
     flexWrap: 'nowrap',
     flexDirection: 'column',
     alignItems: 'stretch',
