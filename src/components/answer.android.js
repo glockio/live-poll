@@ -12,14 +12,38 @@ class Answer extends React.Component {
 
     constructor(props) {
         super(props);
+
+        this.state = {
+            progress: 0.1,
+        }
     }
+
+    setProgressStateFromProps(totalVotes, answer) {
+        var progress = (totalVotes === undefined) ? 0.0 : (answer.voteCount / totalVotes);
+        this.setState({
+            progress: progress,
+        })
+    }
+
+    componentDidMount() {
+        this.setProgressStateFromProps(this.props.totalVoteCount, this.props.answer)
+
+    }
+
+
+    componentWillReceiveProps(nextProps) {
+        this.setProgressStateFromProps(nextProps.totalVoteCount, nextProps.answer)
+    }
+
+
 
     render() {
         var answer = this.props.answer;
         var onPress = this.props.onPress;
         var totalVotes = this.props.totalVoteCount;
-        var progress = 0.4;//(totalVotes === undefined) ? 0.0 : (answer.voteCount / totalVotes);
-        console.log("progress: " + progress);
+
+        // console.log("progress: " + progress);
+        // console.log(progress);
         return (
             <View>
                 <TouchableHighlight
@@ -36,9 +60,9 @@ class Answer extends React.Component {
                     <ProgressBar
                       backgroundStyle={{backgroundColor: '#cccccc', borderRadius: 2}}
                       style={{marginTop: 10, width: 200}}
-                      progress={0.4}/>
+                      progress={this.state.progress}/>
                     <Text style={styles.percentage}>
-                    {progress * 100}
+                    {this.state.progress * 100}
                     </Text>
                 </View>
             </View>
@@ -46,10 +70,13 @@ class Answer extends React.Component {
     }
 }
 
+
+
 Answer.defaultProps = {
     onPress: () => {
         console.log('Submit button pressed');
-    }
+    },
+    progress: 0.6,
 };
 
 var styles = StyleSheet.create({

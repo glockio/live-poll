@@ -22,12 +22,15 @@ class Poll extends React.Component {
 
     renderAnswer(answer) {
       const totalVotes = this.props.openPoll.get("totalVotes");
-      console.log("single answer ", answer);
-      console.log("total votes ", totalVotes);
+      // console.log("single answer ", answer);
+      // console.log("total votes ", totalVotes);
       //return null;
-        return Platform.OS === 'ios'
-            ? <IOSAnswer answer={answer} onPress={this.props.onPress} totalVoteCount={totalVotes}/>
-            : <AndroidAnswer answer={answer} onPress={this.props.onPress} totalVoteCount={totalVotes}/>;
+      if(Platform.OS === 'ios') {
+        return<IOSAnswer answer={answer} onPress={this.props.onPress} totalVoteCount={totalVotes}/>
+      } else {
+        console.log("RENDEING FOR ANDROID")
+        return <AndroidAnswer answer={answer} onPress={this.props.onPress} totalVoteCount={totalVotes}/>;
+      }
     }
 
     renderAnswer0 (answersJSON) {
