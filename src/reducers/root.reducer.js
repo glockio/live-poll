@@ -15,38 +15,7 @@ const initialState = Map({
 
   openPollId: "sdfdsfsfdsfsd",
 
-  polls: {
-    poll1Id: {
-      questionText: "Do you like react-native?",
-      publishedAt: "1449774745",
-      answers: {
-        "answer1Id": {
-          text: "Yes"
-        },
-        "answer2Id": {
-          text: "No"
-        },
-        "answer3Id": {
-          text: "Maybe So"
-        }
-      }
-    },
-    poll2Id: {
-      questionText: "Do you like react-native?",
-      publishedAt: "1449774745",
-      answers: {
-        "answer4Id": {
-          text: "Yes"
-        },
-        "answer5Id": {
-          text: "No"
-        },
-        "answer6Id": {
-          text: "Maybe So"
-        }
-      }
-    }
-  },
+  polls: Map({}),
 
   votes: {
     'answer1Id': {

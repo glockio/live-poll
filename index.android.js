@@ -37,10 +37,10 @@ class reactNativeTest extends Component {
     render(){
         return(
             <Provider store={store}>
-        { () => <App/> }
-</Provider>
-);
-}
+              { () => <App/> }
+            </Provider>
+        );
+    }
 }
 
 AppRegistry.registerComponent('reactNativeTest', () => reactNativeTest);

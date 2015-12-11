@@ -9,6 +9,7 @@ const {
     } = React;
 
 var PollComponent = require('./components/poll');
+
 var LivePollContainer = require('./containers/livepoll.container');
 
 class AppRouter extends React.Component {
@@ -16,8 +17,7 @@ class AppRouter extends React.Component {
   renderScene(route, nav) {
     switch (route.name) {
       case 'currentQ':
-        return <PollComponent navigator={nav} />;
-        //return Platform.OS === 'ios' ? <IOSPoll/> : <AndroidPoll/>;
+        return <LivePollContainer navigator={nav}/>;
       case 'questionList':
         return <IOSQuestionsList navigator={nav} />;
       default:
