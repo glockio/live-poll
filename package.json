@@ -13,6 +13,7 @@
     "react-native-simple-store": "^0.1.0",
     "react-native-animatable": "^0.4.0",
     "react-native-collapsible": "^0.5.4",
+    "react-native-progress-bar": "^0.1.2",
     "react-native-vector-icons": "^1.0.0",
     "react-redux": "^3.0.1",
     "redux": "^3.0.2",
