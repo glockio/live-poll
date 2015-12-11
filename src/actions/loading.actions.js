@@ -159,11 +159,17 @@ export function createPoll (question, answers) {
     fireRef.child('openPollId').update(newPoll.key());
     dispatch({type: "CREATE_POLL", loading: {isLoading: false, message: "Created new poll"}});
     //swap the openPollId
-
 }
 
 export function removePoll (pollId) {
     dispatch({type: "REMOVE_POLL", loading: {isLoading: true, message: "Removing poll with id " + pollId}});
-    fireRef.child('polls').child(pollId).remove()
-    dispatch({type: "REMOVE_POLL", loading: {isLoading: false, message: "Removed poll with id " + pollId}});
+    fireRef.child('polls').child(pollId).remove();
+    fireRef.child('openPollId').once('value', function(payload) {
+        var openPollId = payload.val();
+        if (openPollId == pollId) {
+            dispatch({type: "REMOVE_POLL", loading: {isLoading: false, message: "Cannot remove live poll"}, error: {isError: true, message: "Cannot delete live poll"}});
+        } else {
+            dispatch({type: "REMOVE_POLL", loading: {isLoading: false, message: "Removed poll with id " + pollId}});
+        }
+    });
 }
