@@ -1,6 +1,7 @@
 import React from 'react-native';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux/native';
+import {Map, Seq, List,OrderedMap, Record} from 'immutable';
 
 const {
     Navigator, View, Text, TouchableHighlight, TouchableOpacity, StyleSheet, ProgressViewIOS
@@ -14,8 +15,14 @@ class Answer extends React.Component {
     }
 
     render() {
+      console.log(this.props);
         var answer = this.props.answer;
-        var onPress = this.props.onPress;
+        var onPress = function() {
+          this.props.onPress();
+        }.bind(this);
+
+        var progress = (answer.voteCount / this.props.totalVoteCount);
+
         return (
             <View>
                 <TouchableHighlight
@@ -25,13 +32,13 @@ class Answer extends React.Component {
                     underlayColor="#187AAD"
                     onPress={onPress}>
                     <Text style={styles.label}>
-                        {answer.name}
+                        {answer.text}
                     </Text>
                 </TouchableHighlight>
                 <View style={styles.result}>
-                    <ProgressViewIOS style={styles.bar} progressTintColor="#8DC63F" progress={0.5} trackTintColor="#ffffff"/>
+                    <ProgressViewIOS style={styles.bar} progressTintColor="#8DC63F" progress={progress} trackTintColor="#ffffff"/>
                     <Text style={styles.percentage}>
-                        20%
+                      {progress * 100}
                     </Text>
                 </View>
             </View>

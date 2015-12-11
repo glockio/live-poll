@@ -15,7 +15,12 @@ const initialState = Map({
 
   openPollId: "sdfdsfsfdsfsd",
 
-  openPoll: {},
+  openPoll: Map({
+    questionText: "abcd",
+    answers: Map({
+      text: ""
+    })
+  }),
 
   polls: Map({}),
 

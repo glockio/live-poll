@@ -30,12 +30,22 @@ class LivePollContainer extends Component {
     fireRef.child('votes').off('child_changed', this.getOpenPoll.bind(this));
   }
 
+  onVote(answerId) {
+    console.log("vote !");
+  }
+
   render(){
-    return <PollComponent navigator={this.props.navigator} openPoll={this.props.openPoll}/>;
+    return <PollComponent navigator={this.props.navigator} openPoll={this.props.openPoll} onPress={this.onVote}/>;
   }
 }
 
-LivePollContainer.defaultProps = { openPoll: Map({}) };
+LivePollContainer.defaultProps = {
+  openPoll: Map({
+    answers: Map({
+      text: ""
+    })
+  })
+};
 
 const mapReduxStoreToProps = (reduxStore) => {
     const countRef = new Firebase('https://sizzling-heat-4406.firebaseio.com/');
@@ -45,7 +55,7 @@ const mapReduxStoreToProps = (reduxStore) => {
         fireRef: countRef,
         loading: reduxStore.get('loading'),
         error: reduxStore.get('error'),
-        openPoll: reduxStore.get('polls').get(openPollId)
+        openPoll: reduxStore.get('openPoll')
     };
 };
 

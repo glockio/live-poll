@@ -20,22 +20,37 @@ class Poll extends React.Component {
         super(props);
     }
 
-    renderAnswer(answerData, onPress) {
+    renderAnswer(answer) {
+      const totalVotes = this.props.openPoll.get("totalVotes");
+      console.log("single answer", answer);
+      //return null;
         return Platform.OS === 'ios'
-            ? <IOSAnswer answer={answerData} onPress={onPress}/>
-            : <AndroidAnswer answer={answerData} onPress={onPress}/>;
+            ? <IOSAnswer answer={answer} onPress={this.props.onPress} totalVoteCount={totalVotes}/>
+            : <AndroidAnswer answer={answer} onPress={this.props.onPress} totalVoteCount={totalVotes}/>;
+    }
+
+    renderAnswer0 (answersJSON) {
+      var items = [];
+      for (answerKey in answersJSON) {
+        items.push(this.renderAnswer(answersJSON[answerKey]));
+      }
+      return items;
     }
 
     render(){
-        var answers = this.props.answers;
-        var onPress = this.props.onPress;
+      const {openPoll, onPress} = this.props;
+      const answers = openPoll.get("answers");
+      console.log(answers);
+      console.log(answers.toJS());
+      const questionText = openPoll.get("questionText");
+
         return (
             <View style={styles.container}>
                 <Text style={styles.question}>
-                    Which quarter do you think will be Hootsuite's biggest in 2016?
+                  {questionText}
                 </Text>
                 <View style={styles.buttons}>
-                    {answers.map((answerData) => this.renderAnswer(answerData, onPress))}
+                  {this.renderAnswer0(answers.toJS())}
                 </View>
                 <TouchableHighlight onPress={this._goToPastPolls.bind(this)} style={styles.pastPolls}>
                     <Text style={styles.flip}>Past Polls</Text>
@@ -44,17 +59,10 @@ class Poll extends React.Component {
         );
     }
 }
-
+//{)
 Poll.defaultProps = {
-    onPress: () => {
-        console.log('Submit button pressed');
-    },
-    answers: [
-        {name: "test1", action:"test1"},
-        {name: "test2", action:"test2"},
-        {name: "test3", action:"test3"},
-        {name: "test4", action:"test4"}
-    ]
+
+
 };
 
 var styles = StyleSheet.create({
