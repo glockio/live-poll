@@ -1,9 +1,11 @@
 import React from 'react-native';
 import Immutable from 'immutable';
 var _ = require('lodash');
-var Accordion = require('react-native-collapsible/Accordion');
+var Accordion = require('./accordion');
 var Animatable = require('react-native-animatable');
 var Dimensions = require('Dimensions');
+var QuestionListResult = require('./question-list-result');
+
 var windowSize = Dimensions.get('window');
 
 const {
@@ -52,20 +54,27 @@ class QuestionsList extends React.Component {
   }
 
   _renderResults(question, i, isActive) {
+    var results;
+    if (isActive) {
+      console.log(question);
+      results = _.map(question.answers, (answer, key) => <QuestionListResult totalVotes={question.totalVotes || 0} answer={answer} key={key} />);
+      
+    console.log(results);
+    } else {
+      results = [<View></View>];
+    }
     return (
       <Animatable.View
         style={[styles.content, isActive && styles.isActive]}
         duration={200}
         transition="backgroundColor">
-          <View>
-          <Text>Result</Text>
-          </View>
+          {results}
       </Animatable.View>
     );
   }
 
   _changeQuestion(index) {
-    if(this._questions.length) {
+    if(this._questions.length && this._questions[index]) {
       this.props.onPollClick(this._questions[index].pollId);
     }
   }
@@ -115,7 +124,10 @@ var styles = StyleSheet.create({
     backgroundColor: 'rgba(245,252,255,1)'
   },
   content: {
-    padding: 15,
+    flex: 1,
+    paddingLeft: 15,
+    paddingRight: 15,
+    paddingBottom: 15,
     backgroundColor: 'rgba(245,252,255,1)'
   },
   pastPolls: {
