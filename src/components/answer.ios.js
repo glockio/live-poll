@@ -45,7 +45,7 @@ class Answer extends React.Component {
                 <View style={styles.result}>
                     <ProgressViewIOS style={styles.bar} progressTintColor="#8DC63F" progress={progress} trackTintColor="#ffffff"/>
                     <Text style={styles.percentage}>
-                      {progress * 100}
+                      {(progress * 100).toFixed(2)}
                     </Text>
                 </View>
             </View>
