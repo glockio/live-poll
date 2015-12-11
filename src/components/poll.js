@@ -20,19 +20,22 @@ class Poll extends React.Component {
         super(props);
     }
 
-    renderAnswer(answerData) {
-        return Platform.OS === 'ios' ? <IOSAnswer answer={answerData}/> : <AndroidAnswer answer={answerData}/>;
+    renderAnswer(answerData, onPress) {
+        return Platform.OS === 'ios'
+            ? <IOSAnswer answer={answerData} onPress={onPress}/>
+            : <AndroidAnswer answer={answerData} onPress={onPress}/>;
     }
 
     render(){
         var answers = this.props.answers;
+        var onPress = this.props.onPress;
         return (
             <View style={styles.container}>
                 <Text style={styles.question}>
                     Which quarter do you think will be Hootsuite's biggest in 2016?
                 </Text>
                 <View style={styles.buttons}>
-                    {answers.map(this.renderAnswer)}
+                    {answers.map((answerData) => this.renderAnswer(answerData, onPress))}
                 </View>
                 <TouchableHighlight onPress={this._goToPastPolls.bind(this)} style={styles.pastPolls}>
                     <Text style={styles.flip}>Past Polls</Text>
@@ -43,7 +46,7 @@ class Poll extends React.Component {
 }
 
 Poll.defaultProps = {
-    onMePress: () => {
+    onPress: () => {
         console.log('Submit button pressed');
     },
     answers: [
