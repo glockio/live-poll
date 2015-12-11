@@ -18,8 +18,24 @@ class QuestionsList extends React.Component {
     super(props);
 
     this._changeQuestion = this._changeQuestion.bind(this);
+    if (props.questions.size) {
+      this._questions = _.map(props.questions.toJS(), (question, key) => {
+        question.pollId = key;
+        return question;
+      });
+    } else {
+      this._questions = [];
+    }
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (!Immutable.is(nextProps.questions, this.props.questions)) {
+      this._questions = _.map(nextProps.questions.toJS(), (question, key) => {
+        question.pollId = key;
+        return question;
+      });
+    }
+  }
   _goToLivePoll() {
     this.props.navigator.pop();
   }
@@ -30,7 +46,7 @@ class QuestionsList extends React.Component {
         style={[styles.header, isActive && styles.isActive]}
         duration={200}
         transition="backgroundColor">
-        <Text>{question.get('questionText')}</Text>
+        <Text>{question.questionText}</Text>
       </Animatable.View>
     );
   }
@@ -41,29 +57,29 @@ class QuestionsList extends React.Component {
         style={[styles.content, isActive && styles.isActive]}
         duration={200}
         transition="backgroundColor">
-        <Text>Results</Text>
+          <Text>Result</Text>
+          </View>
       </Animatable.View>
     );
   }
 
   _changeQuestion(index) {
-    let questions = this.props.questions.toArray();
-    console.log(questions[index].toJS());
+    if(this._questions.length) {
+      this.props.onPollClick(this._questions[index].pollId);
+    }
   }
 
   render() {
-    console.log(windowSize);
-    let sections = this.props.questions.toArray();
     return (
         <View style={styles.container}>
           <ScrollView style={styles.scrollView}>
             <Accordion
-              sections={sections} 
+              sections={this._questions}
               renderHeader={this._renderQuestion}
               renderContent={this._renderResults}
               underlayColor='#333333'
               easing="easeOutCubic"
-              onChange={this._changeQuestion}/>
+              onChange={this._changeQuestion} />
           </ScrollView>
           <TouchableHighlight onPress={this._goToLivePoll.bind(this)} style={styles.pastPolls}>
             <Text style={styles.flip}>Current Poll</Text>
@@ -112,6 +128,14 @@ var styles = StyleSheet.create({
       borderColor: 'rgba(0,0,0,0.2)',
       color: '#ffffff',
       textAlign: 'center',
+  },
+  result: {
+    flex: 1,
+    marginBottom: 10,
+    marginLeft: 20,
+    marginRight: 20,
+    alignItems: 'flex-start',
+    flexWrap: 'nowrap'
   }
 });
 

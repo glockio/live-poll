@@ -3,7 +3,7 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux/native';
 
 const {
-    Navigator, View, Text, TouchableHighlight, TouchableOpacity, StyleSheet, ProgressBarAndroid
+    Navigator, View, ScrollView, Text, TouchableHighlight, TouchableOpacity, StyleSheet, ProgressBarAndroid
     } = React;
 
 
@@ -48,14 +48,16 @@ class Poll extends React.Component {
 
         return (
             <View style={styles.container}>
-                <View style={styles.questionWrapper}>
-                    <Text style={styles.question}>
-                      {questionText}
-                    </Text>
-                    <View style={styles.buttons}>
-                      {this.renderAnswer0(answers.toJS())}
+                <ScrollView style={styles.scrollView}>
+                    <View style={styles.questionWrapper}>
+                        <Text style={styles.question}>
+                          {questionText}
+                        </Text>
+                        <View style={styles.buttons}>
+                          {this.renderAnswer0(answers.toJS())}
+                        </View>
                     </View>
-                </View>
+                </ScrollView>
                 <TouchableHighlight onPress={this._goToPastPolls.bind(this)} style={styles.pastPolls}>
                     <Text style={styles.flip}>Past Polls</Text>
                 </TouchableHighlight>
@@ -70,6 +72,9 @@ Poll.defaultProps = {
 };
 
 var styles = StyleSheet.create({
+    scrollView: {
+        flex: 1
+    },
     container: {
         flex: 1,
         height: windowSize.height,

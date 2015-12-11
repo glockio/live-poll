@@ -37,7 +37,7 @@ class QuestionsContainer extends React.Component {
     const {questions, navigator} = this.props;
     return(
       <View>
-        <QuestionsList  navigator={navigator} questions={questions} onPollClick={this.onClickSinglePoll.bind(this)}/>
+        <QuestionsList navigator={navigator} questions={questions} onPollClick={this.onClickSinglePoll.bind(this)}/>
       </View>
     );
   }
