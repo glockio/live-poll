@@ -11,19 +11,23 @@ var PollComponent = require('../components/poll');
 
 class LivePollContainer extends Component {
 
+  getOpenPoll(snapShot) {
+    const value = snapShot.val();
+    this.props.getOpenPoll(this.props.fireRef);
+  }
+
   componentDidMount() {
     const {fireRef} = this.props;
     this.props.getOpenPoll(fireRef);
 
-    fireRef.child('openPollId').on('child_changed', (snapShot) => {
-      const value = snapShot.val();
-      this.props.getOpenPoll(fireRef);
-    });
+    fireRef.child('openPollId').on('child_changed', this.getOpenPoll.bind(this));
+    fireRef.child('votes').on('child_changed', this.getOpenPoll.bind(this));
+  }
 
-    fireRef.child('votes').on('child_changed', (snapShot) => {
-      const value = snapShot.val();
-      this.props.getOpenPoll(fireRef);
-    });
+  componentWillUnmount() {
+    const {fireRef} = this.props;
+    fireRef.child('openPollId').off('child_changed', this.getOpenPoll.bind(this));
+    fireRef.child('votes').off('child_changed', this.getOpenPoll.bind(this));
   }
 
   render(){
