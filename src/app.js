@@ -16,7 +16,7 @@ class AppRouter extends React.Component {
   renderScene(route, nav) {
     switch (route.name) {
       case 'currentQ':
-        return <PollCo
+        return <PollComponent />;
         //return Platform.OS === 'ios' ? <IOSPoll/> : <AndroidPoll/>;
       case 'questionList':
         return <IOSQuestionsList />;
