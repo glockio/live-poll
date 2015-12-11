@@ -5,7 +5,7 @@ var Accordion = require('react-native-collapsible/Accordion');
 var Animatable = require('react-native-animatable');
 
 const {
- StyleSheet, Navigator, View, ScrollView, Text, TextInput, TouchableHighlight, ListView
+ StyleSheet, Navigator, View, ScrollView, Text, TextInput, TouchableHighlight
 } = React;
 
 if(!StyleSheet.flatten) {
@@ -14,31 +14,6 @@ if(!StyleSheet.flatten) {
 class QuestionsList extends React.Component {
   constructor(props) {
     super(props);
-
-    this._dataSource = new ListView.DataSource({
-      rowHasChanged: (row1, row2) => r1 !== r2,
-    });
-  }
-
-  _renderRow(question) {
-    var header = (
-      <View style={styles.row}>
-        <Text>{question.get('questionText')}</Text>
-      </View>
-    );
-
-    var content = (
-      <View style={styles.rowhidden}>
-        <Text>This content is hidden in the accordion</Text>
-      </View>
-    );
-
-    return (
-      <Accordion
-        header={header}
-        content={content}
-        easing="easeOutCubic" />
-    );
   }
 
   _goToLivePoll() {
@@ -68,7 +43,6 @@ class QuestionsList extends React.Component {
   }
 
   render() {
-    // let dataSource = this._dataSource.cloneWithRows(this.props.questions.toArray());
     let sections = this.props.questions.toArray();
     return (
         <View style={styles.container}>
@@ -77,7 +51,8 @@ class QuestionsList extends React.Component {
               sections={sections} 
               renderHeader={this._renderQuestion}
               renderContent={this._renderResults}
-              underlayColor='#333333' />
+              underlayColor='#333333'
+              easing="easeOutCubic"  />
           </View>
           <TouchableHighlight onPress={this._goToLivePoll.bind(this)} style={styles.pastPolls}>
             <Text style={styles.flip}>Current Poll</Text>
@@ -109,9 +84,6 @@ var styles = StyleSheet.create({
   content: {
     padding: 15,
     backgroundColor: 'rgba(245,252,255,1)'
-  },
-  rowhidden: {
-      padding: 15
   },
   pastPolls: {
       flex: 1,
