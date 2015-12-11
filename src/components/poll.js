@@ -39,16 +39,7 @@ class Poll extends React.Component {
     }
 
     hasUserVotedOnAnswer (answerId) {
-      var votes = this.props.votes.toJSON()[answerId];
-      if (votes){
-        for (vote in votes) {
-          if (votes[vote]['userId'] == this.props.userId) {
-            return true;
-          }
-        }
-      } else {
-        return false;
-      }
+      return this.props.selectedAnswerId == answerId;
     }
 
     render(){
@@ -80,8 +71,7 @@ class Poll extends React.Component {
 }
 
 Poll.defaultProps = {
-
-
+  selectedAnswerId: null,
 };
 
 var styles = StyleSheet.create({

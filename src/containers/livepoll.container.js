@@ -38,7 +38,7 @@ class LivePollContainer extends Component {
     if (this.props.loading.get("isLoading")) {
       return (<View style={styles.container}><Text style={styles.loadingText}>Loading ...</Text></View>);
     } else {
-      return (<PollComponent navigator={this.props.navigator} votes={this.props.votes} userId={this.props.userId} openPoll={this.props.openPoll} onPress={this.onVote.bind(this)}/>);
+      return (<PollComponent navigator={this.props.navigator} votes={this.props.votes} userId={this.props.userId} openPoll={this.props.openPoll} selectedAnswerId={this.props.selectedAnswerId} onPress={this.onVote.bind(this)}/>);
     }
   }
 }
@@ -73,6 +73,7 @@ const mapReduxStoreToProps = (reduxStore) => {
     const countRef = new Firebase('https://sizzling-heat-4406.firebaseio.com/');
     const openPollId = reduxStore.get('openPollId');
 
+
     return {
         fireRef: countRef,
         loading: reduxStore.get('loading'),
@@ -80,7 +81,8 @@ const mapReduxStoreToProps = (reduxStore) => {
         openPoll: reduxStore.get('openPoll'),
         postVote: reduxStore.get('postVote'),
         userId: reduxStore.get('userId'),
-        votes: reduxStore.get('votes')
+        votes: reduxStore.get('votes'),
+        selectedAnswerId: reduxStore.get('votingHistory').get(openPollId)
     };
 };
 

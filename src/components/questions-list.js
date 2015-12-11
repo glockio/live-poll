@@ -42,7 +42,7 @@ class QuestionsList extends React.Component {
 
   _renderQuestion(question, i, isActive) {
     return (
-      <Animatable.View 
+      <Animatable.View
         style={[styles.header, isActive && styles.isActive]}
         duration={200}
         transition="backgroundColor">
