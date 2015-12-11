@@ -26,7 +26,7 @@ class LivePollContainer extends Component {
   componentWillUnmount() {
     const {fireRef} = this.props;
     fireRef.child('openPollId').off('child_changed', this.getOpenPoll.bind(this));
-    fireRef.child('votes').off('child_changed', this.getOpenPoll.bind(this));
+    fireRef.child('votes').off('value', this.getOpenPoll.bind(this));
   }
 
   onVote(answerId) {
