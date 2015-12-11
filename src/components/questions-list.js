@@ -6,6 +6,7 @@ var Dimensions = require('Dimensions');
 var QuestionListResult = require('./question-list-result');
 
 var windowSize = Dimensions.get('window');
+var {Platform} = React;
 
 const {
  StyleSheet, Navigator, View, ScrollView, Text, TextInput, TouchableHighlight
@@ -79,7 +80,8 @@ class QuestionsList extends React.Component {
   }
 
   render() {
-    return (
+    if (Platform.OS == 'ios') {
+      return (
         <View style={styles.container}>
           <ScrollView style={styles.scrollView}>
             <Accordion
@@ -94,7 +96,27 @@ class QuestionsList extends React.Component {
             <Text style={styles.flip}>Current Poll</Text>
           </TouchableHighlight>
         </View>
-    );
+      );
+    } else {
+      return (
+        <View style={styles.container}>
+          <ScrollView style={styles.scrollView}>
+            <Accordion
+              sections={this._questions}
+              renderHeader={this._renderQuestion}
+              renderContent={this._renderResults}
+              underlayColor='#333333'
+              easing="easeOutCubic"
+              onChange={this._changeQuestion} />
+          </ScrollView>
+          <TouchableHighlight onPress={this._goToLivePoll.bind(this)} style={styles.pastPolls}>
+            <Text style={styles.flipAndroid}>Current Poll</Text>
+          </TouchableHighlight>
+        </View>
+      );
+    }
+
+
   }
 }
 
@@ -130,8 +152,7 @@ var styles = StyleSheet.create({
     backgroundColor: 'rgba(245,252,255,1)'
   },
   pastPolls: {
-      margin: 0,
-      justifyContent: 'flex-end'
+      margin: 0
   },
   flip: {
       padding: 5,
@@ -140,6 +161,15 @@ var styles = StyleSheet.create({
       borderColor: 'rgba(0,0,0,0.2)',
       color: '#ffffff',
       textAlign: 'center',
+  },
+  flipAndroid: {
+    height: 60,
+    padding: 5,
+    fontSize: 20,
+    backgroundColor: '#242424',
+    borderColor: 'rgba(0,0,0,0.2)',
+    color: '#ffffff',
+    textAlign: 'center',
   },
   result: {
     flex: 1,
